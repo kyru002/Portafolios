@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
     <main>
       <section id="inicio" class="hero section">
         <div class="hero-copy">
-          <h1>Wel Application Developer</h1>
+          <h1>Web Application Developer</h1>
           <p class="hero-lead">
             Building intelligent systems, product-first interfaces, and data-aware experiences for modern AI
             startups and high-end tech teams.

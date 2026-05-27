@@ -119,8 +119,8 @@ const projects = [
     description:
       'Collaborative development of the company website with modern design and performance optimization. My first professional team project.',
     stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
-    ctaLive: 'https://satoshispain.com',
-    ctaCode: 'https://github.com/tuusuario/satoshi-spain',
+    ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
+    ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
     previewTone: 'collaboration',
     panels: [
       { title: 'Landing', type: 'homepage' },
@@ -145,9 +145,9 @@ const techStack = [
 const contactIcons = [IconGithub, IconLinkedin, IconMail]
 
 const contactLinks = [
-  { label: 'GitHub', href: 'https://github.com/tuusuario' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/tuperfil' },
-  { label: 'Email', href: 'mailto:tu.email@ejemplo.com' },
+  { label: 'GitHub', href: 'https://github.com/kyru002' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enrique-abad-romero-098a282bb/' },
+  { label: 'Email', href: 'mailto:enriqueabadromero02@gmail.com' },
 ]
 
 let observer

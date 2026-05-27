@@ -26,14 +26,14 @@ import ParticleField from './ParticleField.vue'
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.95;
+  opacity: 1.95;
 }
 .grad-purple {
   width: 700px;
   height: 700px;
   left: 6%;
   top: 6%;
-  background: radial-gradient(circle at 40% 40%, rgba(139,92,246,0.18) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 50%, rgba(139,92,246,0.18) 0%, transparent 50%);
   animation: movePurple 12s ease-in-out infinite;
 }
 .grad-blue {
@@ -41,7 +41,7 @@ import ParticleField from './ParticleField.vue'
   height: 600px;
   right: 8%;
   top: 16%;
-  background: radial-gradient(circle at 50% 50%, rgba(59,130,246,0.14) 0%, transparent 70%);
+  background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.14) 0%, transparent 60%);
   animation: moveBlue 14s ease-in-out infinite;
 }
 .grad-cyan {

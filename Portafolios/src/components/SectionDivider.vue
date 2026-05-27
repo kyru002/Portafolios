@@ -30,7 +30,7 @@
 .divider-line {
   position: relative;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+  background: linear-gradient(190deg, transparent, rgba(275, 255, 255, 0.24), transparent);
   overflow: hidden;
 }
 

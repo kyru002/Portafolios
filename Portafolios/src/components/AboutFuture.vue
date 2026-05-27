@@ -60,13 +60,7 @@ const qualities = [
       </article>
     </div>
 
-    <div class="about-quote glass-panel" data-reveal style="--reveal-delay: 400ms;">
-      <p>
-        "La tecnologia no se trata solo de escribir codigo: se trata de crear experiencias que empoderen a
-        las personas. Me impulsa construir software que no sea solo funcional, sino
-        <span class="quote-accent">inteligente, intuitivo e impactante</span>."
-      </p>
-    </div>
+   
   </section>
 </template>
 

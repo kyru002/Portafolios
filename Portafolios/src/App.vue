@@ -66,10 +66,10 @@ const projects = [
       'Complete restaurant website with reservation system, menu management and responsive design. Currently under maintenance.',
     stack: ['Vue', 'Node.js', 'SQL', 'Responsive UI'],
     ctaLive: 'http://www.elviejoroblesabadell.es',
-    ctaCode: 'https://github.com/tuusuario/el-viejo-roble',
+    ctaCode: 'https://github.com/kyru002/WebElViejoRoble-Portafolios',
     previewTone: 'restaurant',
     previewImages: ['/viejo-roble-1.webp', '/viejo-roble-2.webp', '/viejo-roble-3.webp', '/viejo-roble-4.webp'],
-    previewImagePositions: ['50% 35%', '50% 30%', '50% 25%', '50% 25%'],
+    previewImagePositions: ['50% 35%', '50% 35%', '50% 35%', '50% 80%'],
     previewImageFits: ['cover', 'contain', 'cover', 'cover'],
     panels: [
       { title: 'Homepage', type: 'homepage' },

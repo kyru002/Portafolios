@@ -830,7 +830,7 @@
 }
 
 .project-image-hero-full {
-  /* Match the hero image aspect ratio (1200x800 -> 3/2) so the block fits the photo */
+  /* Keep the original hero frame size */
   aspect-ratio: 3 / 2;
   width: 100%;
   position: relative;
@@ -847,7 +847,7 @@
 }
 
 .project-image-thumb {
-  width: 120px;
+  width: 150px;
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
@@ -873,11 +873,12 @@
   object-position: center center;
 }
 
-/* Ensure hero image fills the hero block and uses the focal point set in the data */
+/* Show the full hero image without cropping */
 .project-image-hero-full img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: block;
+  object-fit: contain;
   object-position: center center; /* overridden inline by previewImagePositions when present */
   padding: 0; /* remove previous padding used for contain layout */
 }

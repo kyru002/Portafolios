@@ -65,7 +65,7 @@ const projects = [
     description:
       'Complete restaurant website with reservation system, menu management and responsive design. Currently under maintenance.',
     stack: ['Vue', 'Node.js', 'SQL', 'Responsive UI'],
-    ctaLive: 'https://elviejoroble.es',
+    ctaLive: 'http://www.elviejoroblesabadell.es',
     ctaCode: 'https://github.com/tuusuario/el-viejo-roble',
     previewTone: 'restaurant',
     previewImages: ['/viejo-roble-1.webp', '/viejo-roble-2.webp', '/viejo-roble-3.webp', '/viejo-roble-4.webp'],

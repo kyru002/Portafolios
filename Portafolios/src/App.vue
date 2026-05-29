@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import IconSpark from './components/icons/IconSpark.vue'
 import IconGithub from './components/icons/IconGithub.vue'
 import IconLinkedin from './components/icons/IconLinkedin.vue'
@@ -28,8 +28,8 @@ const projects = [
     description:
       'Capstone project that tackles low engagement in traditional programming education. Full points, streaks, achievements and interactive exercises with instant feedback.',
     stack: ['Vue', 'Node.js', 'JavaScript', 'SQL', 'Gamification'],
-    ctaLive: 'https://coding404.demo.com',
-    ctaCode: 'https://github.com/tuusuario/coding404',
+    ctaLive: 'https://kyru002.github.io/Coding404/',
+    ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
     previewTone: 'learning',
     metrics: [
       { label: 'Active streak', value: '12' },
@@ -68,6 +68,9 @@ const projects = [
     ctaLive: 'https://elviejoroble.es',
     ctaCode: 'https://github.com/tuusuario/el-viejo-roble',
     previewTone: 'restaurant',
+    previewImages: ['/viejo-roble-1.webp', '/viejo-roble-2.webp', '/viejo-roble-3.webp', '/viejo-roble-4.webp'],
+    previewImagePositions: ['50% 35%', '50% 30%', '50% 25%', '50% 25%'],
+    previewImageFits: ['cover', 'contain', 'cover', 'cover'],
     panels: [
       { title: 'Homepage', type: 'homepage' },
       { title: 'Menu page', type: 'menu' },
@@ -122,6 +125,9 @@ const projects = [
     ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
     ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
     previewTone: 'collaboration',
+    previewImages: ['/satoshi-1.webp', '/satoshi-2.webp', '/satoshi-3.webp'],
+    previewImagePositions: ['50% 38%', '50% 28%', '50% 28%'],
+    previewImageFits: ['cover', 'cover', 'cover'],
     panels: [
       { title: 'Landing', type: 'homepage' },
       { title: 'Responsive blocks', type: 'menu' },
@@ -129,6 +135,40 @@ const projects = [
     ],
   },
 ]
+
+// Lightbox state for image preview
+const modalOpen = ref(false)
+const modalSrc = ref('')
+const viejoRoblePreviewIndex = ref(0)
+const satoshiPreviewIndex = ref(0)
+
+function openPreview(src) {
+  modalSrc.value = src
+  modalOpen.value = true
+}
+
+function setViejoRoblePreview(index) {
+  viejoRoblePreviewIndex.value = index
+}
+
+function stepViejoRoblePreview(direction) {
+  const total = 4
+  viejoRoblePreviewIndex.value = (viejoRoblePreviewIndex.value + direction + total) % total
+}
+
+function setSatoshiPreview(index) {
+  satoshiPreviewIndex.value = index
+}
+
+function stepSatoshiPreview(direction) {
+  const total = 3
+  satoshiPreviewIndex.value = (satoshiPreviewIndex.value + direction + total) % total
+}
+
+function closePreview() {
+  modalOpen.value = false
+  modalSrc.value = ''
+}
 
 const techStack = [
   { label: 'HTML', detail: 'Semantic structure and scalable foundations', value: 95 },
@@ -363,6 +403,104 @@ onBeforeUnmount(() => {
                 </div>
               </div>
 
+              <div v-else-if="project.id === 'viejo-roble'" class="project-image-showcase-full">
+                <figure class="project-image-hero-full">
+                  <button class="project-image-arrow project-image-arrow-left" type="button" aria-label="Previous image" @click="stepViejoRoblePreview(-1)">
+                    <span>‹</span>
+                  </button>
+
+                  <img
+                    :src="project.previewImages[viejoRoblePreviewIndex]"
+                    :srcset="`${project.previewImages[viejoRoblePreviewIndex].replace('.webp', '-480w.webp')} 480w, ${project.previewImages[viejoRoblePreviewIndex].replace('.webp', '-800w.webp')} 800w, ${project.previewImages[viejoRoblePreviewIndex]} 1200w`"
+                    sizes="(max-width: 920px) 100vw, 60vw"
+                    :alt="`${project.title} preview ${viejoRoblePreviewIndex + 1}`"
+                    loading="lazy"
+                    decoding="async"
+                    :style="{
+                      objectPosition: project.previewImagePositions ? project.previewImagePositions[viejoRoblePreviewIndex] : 'center center',
+                      objectFit: project.previewImageFits ? project.previewImageFits[viejoRoblePreviewIndex] : 'cover',
+                    }"
+                    @click="openPreview(project.previewImages[viejoRoblePreviewIndex])"
+                  />
+
+                  <button class="project-image-arrow project-image-arrow-right" type="button" aria-label="Next image" @click="stepViejoRoblePreview(1)">
+                    <span>›</span>
+                  </button>
+                </figure>
+
+                <div class="project-image-thumbs">
+                  <figure
+                    v-for="(imgSrc, idx) in project.previewImages"
+                    :key="imgSrc"
+                    class="project-image-thumb"
+                    :class="{ 'is-active': idx === viejoRoblePreviewIndex }"
+                  >
+                    <img
+                      :src="imgSrc"
+                      :srcset="`${imgSrc.replace('.webp', '-480w.webp')} 480w, ${imgSrc.replace('.webp', '-800w.webp')} 800w, ${imgSrc} 1200w`"
+                      sizes="120px"
+                      :alt="`${project.title} thumb ${idx + 1}`"
+                      loading="lazy"
+                      decoding="async"
+                      :style="{
+                        objectPosition: project.previewImagePositions ? project.previewImagePositions[idx] : 'center center',
+                        objectFit: project.previewImageFits ? project.previewImageFits[idx] : 'cover',
+                      }"
+                      @click="setViejoRoblePreview(idx)"
+                    />
+                  </figure>
+                </div>
+              </div>
+
+              <div v-else-if="project.id === 'satoshi-spain'" class="project-image-showcase-full">
+                <figure class="project-image-hero-full">
+                  <button class="project-image-arrow project-image-arrow-left" type="button" aria-label="Previous image" @click="stepSatoshiPreview(-1)">
+                    <span>‹</span>
+                  </button>
+
+                  <img
+                    :src="project.previewImages[satoshiPreviewIndex]"
+                    :srcset="`${project.previewImages[satoshiPreviewIndex].replace('.webp', '-480w.webp')} 480w, ${project.previewImages[satoshiPreviewIndex].replace('.webp', '-800w.webp')} 800w, ${project.previewImages[satoshiPreviewIndex]} 1200w`"
+                    sizes="(max-width: 920px) 100vw, 60vw"
+                    :alt="`${project.title} preview ${satoshiPreviewIndex + 1}`"
+                    loading="lazy"
+                    decoding="async"
+                    :style="{
+                      objectPosition: project.previewImagePositions ? project.previewImagePositions[satoshiPreviewIndex] : 'center center',
+                      objectFit: project.previewImageFits ? project.previewImageFits[satoshiPreviewIndex] : 'cover',
+                    }"
+                    @click="openPreview(project.previewImages[satoshiPreviewIndex])"
+                  />
+
+                  <button class="project-image-arrow project-image-arrow-right" type="button" aria-label="Next image" @click="stepSatoshiPreview(1)">
+                    <span>›</span>
+                  </button>
+                </figure>
+
+                <div class="project-image-thumbs">
+                  <figure
+                    v-for="(imgSrc, idx) in project.previewImages"
+                    :key="imgSrc"
+                    class="project-image-thumb"
+                    :class="{ 'is-active': idx === satoshiPreviewIndex }"
+                  >
+                    <img
+                      :src="imgSrc"
+                      :srcset="`${imgSrc.replace('.webp', '-480w.webp')} 480w, ${imgSrc.replace('.webp', '-800w.webp')} 800w, ${imgSrc} 1200w`"
+                      sizes="120px"
+                      :alt="`${project.title} thumb ${idx + 1}`"
+                      loading="lazy"
+                      decoding="async"
+                      :style="{
+                        objectPosition: project.previewImagePositions ? project.previewImagePositions[idx] : 'center center',
+                        objectFit: project.previewImageFits ? project.previewImageFits[idx] : 'cover',
+                      }"
+                      @click="setSatoshiPreview(idx)"
+                    />
+                  </figure>
+                </div>
+              </div>
+
               <div v-else class="project-preview-grid">
                 <div v-for="panel in project.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
                   <div class="mock-label">{{ panel.title }}</div>
@@ -485,5 +623,8 @@ onBeforeUnmount(() => {
         <span></span>
       </div>
     </footer>
+    <div v-if="modalOpen" class="image-modal" @click.self="closePreview">
+      <img :src="modalSrc" :alt="'Preview of ' + modalSrc" />
+    </div>
   </div>
 </template>

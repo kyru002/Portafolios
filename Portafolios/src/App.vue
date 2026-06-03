@@ -31,6 +31,9 @@ const projects = [
     ctaLive: 'https://kyru002.github.io/Coding404/',
     ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
     previewTone: 'learning',
+    previewImage: '/suport-desk-4.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
     metrics: [
       { label: 'Active streak', value: '12' },
       { label: 'Lessons', value: '248' },
@@ -68,9 +71,7 @@ const projects = [
     ctaLive: 'http://www.elviejoroblesabadell.es',
     ctaCode: 'https://github.com/kyru002/WebElViejoRoble-Portafolios',
     previewTone: 'restaurant',
-    previewImages: ['/viejo-roble-1.webp', '/viejo-roble-2.webp', '/viejo-roble-3.webp', '/viejo-roble-4.webp'],
-    previewImagePositions: ['50% 35%', '50% 35%', '50% 35%', '50% 80%'],
-    previewImageFits: ['cover', 'contain', 'cover', 'cover'],
+    previewImage: '/el-viejo-roble-1.png',
     panels: [
       { title: 'Homepage', type: 'homepage' },
       { title: 'Menu page', type: 'menu' },
@@ -78,21 +79,24 @@ const projects = [
     ],
   },
   {
-    id: 'wildebit',
+    id: 'ticketing-app',
     featured: false,
-    category: 'Hackathon',
-    title: 'Email Manager AI',
-    role: 'AI automation and productivity',
+    category: 'Class Project',
+    title: 'Ticketing App',
+    role: 'Frontend + Backend (class project)',
     description:
-      'Intelligent email manager using AI APIs to filter and organize messages automatically. Built during the Wildebit hackathon.',
-    stack: ['Python', 'AI', 'APIs', 'Automation'],
-    ctaLive: 'https://example.com',
-    ctaCode: 'https://github.com/tuusuario/ai-email-manager',
+      'Ticketing application built as a class project: create tickets, assign, track status, and basic auth. Built with Vue and Node.js.',
+    stack: ['Vue', 'Node.js', 'MongoDB'],
+    ctaLive: '',
+    ctaCode: '',
     previewTone: 'productivity',
+    previewImage: '/suport-desk-1.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
     panels: [
-      { title: 'Smart inbox', type: 'inbox' },
-      { title: 'AI filters', type: 'filters' },
-      { title: 'Email categories', type: 'categories' },
+      { title: 'Issue list', type: 'inbox' },
+      { title: 'Ticket details', type: 'workspace' },
+      { title: 'Assign & status', type: 'reports' },
     ],
   },
   {
@@ -103,15 +107,15 @@ const projects = [
     role: 'Internal reporting and collaboration system',
     description:
       'Internal reporting app similar to OneNote that enables employees to create, manage and collaborate on reports efficiently.',
-    stack: ['JavaScript', 'CRUD', 'Enterprise UX', 'SQL'],
-    ctaLive: 'https://example.com',
-    ctaCode: 'https://github.com/tuusuario/topcon-reporting',
+    stack: ['JavaScript', 'CRUD', 'Enterprise UX', 'MongoDB'],
+    ctaLive: 'https://axis-brook-34332755.figma.site',
+    ctaCode: 'https://github.com/kyru002/Pruebas_Sistema_Informes',
     previewTone: 'enterprise',
-    panels: [
-      { title: 'Workspace dashboard', type: 'workspace' },
-      { title: 'Notes interface', type: 'notes' },
-      { title: 'Report system', type: 'reports' },
-    ],
+    previewImage: '/sistema-informes-1.png',
+    previewImageFallback: '/suport-desk-4.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
+   
   },
   {
     id: 'satoshi-spain',
@@ -125,49 +129,29 @@ const projects = [
     ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
     ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
     previewTone: 'collaboration',
-    previewImages: ['/satoshi-1.webp', '/satoshi-2.webp', '/satoshi-3.webp'],
-    previewImagePositions: ['50% 38%', '50% 28%', '50% 28%'],
-    previewImageFits: ['cover', 'cover', 'cover'],
-    panels: [
-      { title: 'Landing', type: 'homepage' },
-      { title: 'Responsive blocks', type: 'menu' },
-      { title: 'Performance', type: 'workspace' },
-    ],
+    previewImage: '/satoshi-foto-1.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
   },
 ]
 
 // Lightbox state for image preview
 const modalOpen = ref(false)
 const modalSrc = ref('')
-const viejoRoblePreviewIndex = ref(0)
-const satoshiPreviewIndex = ref(0)
 
 function openPreview(src) {
   modalSrc.value = src
   modalOpen.value = true
 }
 
-function setViejoRoblePreview(index) {
-  viejoRoblePreviewIndex.value = index
-}
-
-function stepViejoRoblePreview(direction) {
-  const total = 4
-  viejoRoblePreviewIndex.value = (viejoRoblePreviewIndex.value + direction + total) % total
-}
-
-function setSatoshiPreview(index) {
-  satoshiPreviewIndex.value = index
-}
-
-function stepSatoshiPreview(direction) {
-  const total = 3
-  satoshiPreviewIndex.value = (satoshiPreviewIndex.value + direction + total) % total
-}
-
 function closePreview() {
   modalOpen.value = false
   modalSrc.value = ''
+}
+
+function onImgError(event, project) {
+  const fallback = project && project.previewImageFallback ? project.previewImageFallback : '/suport-desk-4.png'
+  if (event && event.target) event.target.src = fallback
 }
 
 const techStack = [
@@ -405,160 +389,133 @@ onBeforeUnmount(() => {
 
               <div v-else-if="project.id === 'viejo-roble'" class="project-image-showcase-full">
                 <figure class="project-image-hero-full">
-                  <button class="project-image-arrow project-image-arrow-left" type="button" aria-label="Previous image" @click="stepViejoRoblePreview(-1)">
-                    <span>‹</span>
-                  </button>
-
                   <img
-                    :src="project.previewImages[viejoRoblePreviewIndex]"
-                    :srcset="`${project.previewImages[viejoRoblePreviewIndex].replace('.webp', '-480w.webp')} 480w, ${project.previewImages[viejoRoblePreviewIndex].replace('.webp', '-800w.webp')} 800w, ${project.previewImages[viejoRoblePreviewIndex]} 1200w`"
-                    sizes="(max-width: 920px) 100vw, 60vw"
-                    :alt="`${project.title} preview ${viejoRoblePreviewIndex + 1}`"
+                    :src="project.previewImage"
+                    :alt="`${project.title} main page preview`"
                     loading="lazy"
                     decoding="async"
-                    :style="{
-                      objectPosition: project.previewImagePositions ? project.previewImagePositions[viejoRoblePreviewIndex] : 'center center',
-                      objectFit: project.previewImageFits ? project.previewImageFits[viejoRoblePreviewIndex] : 'cover',
-                    }"
-                    @click="openPreview(project.previewImages[viejoRoblePreviewIndex])"
+                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                    @error="onImgError($event, project)"
+                    @click="openPreview(project.previewImage)"
                   />
-
-                  <button class="project-image-arrow project-image-arrow-right" type="button" aria-label="Next image" @click="stepViejoRoblePreview(1)">
-                    <span>›</span>
-                  </button>
                 </figure>
+              </div>
 
-                <div class="project-image-thumbs">
-                  <figure
-                    v-for="(imgSrc, idx) in project.previewImages"
-                    :key="imgSrc"
-                    class="project-image-thumb"
-                    :class="{ 'is-active': idx === viejoRoblePreviewIndex }"
-                  >
-                    <img
-                      :src="imgSrc"
-                      :srcset="`${imgSrc.replace('.webp', '-480w.webp')} 480w, ${imgSrc.replace('.webp', '-800w.webp')} 800w, ${imgSrc} 1200w`"
-                      sizes="120px"
-                      :alt="`${project.title} thumb ${idx + 1}`"
-                      loading="lazy"
-                      decoding="async"
-                      :style="{
-                        objectPosition: project.previewImagePositions ? project.previewImagePositions[idx] : 'center center',
-                        objectFit: project.previewImageFits ? project.previewImageFits[idx] : 'cover',
-                      }"
-                      @click="setViejoRoblePreview(idx)"
-                    />
-                  </figure>
-                </div>
+              <div v-else-if="project.id === 'topcon'" class="project-image-showcase-full">
+                <figure class="project-image-hero-full">
+                  <img
+                    :src="project.previewImage"
+                    :alt="`${project.title} main page preview`"
+                    loading="lazy"
+                    decoding="async"
+                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                    @error="onImgError($event, project)"
+                    @click="openPreview(project.previewImage)"
+                  />
+                </figure>
+              </div>
+
+              <div v-else-if="project.id === 'ticketing-app'" class="project-image-showcase-full">
+                <figure class="project-image-hero-full">
+                  <img
+                    :src="project.previewImage"
+                    :alt="`${project.title} main page preview`"
+                    loading="lazy"
+                    decoding="async"
+                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                    @error="onImgError($event, project)"
+                    @click="openPreview(project.previewImage)"
+                  />
+                </figure>
               </div>
 
               <div v-else-if="project.id === 'satoshi-spain'" class="project-image-showcase-full">
                 <figure class="project-image-hero-full">
-                  <button class="project-image-arrow project-image-arrow-left" type="button" aria-label="Previous image" @click="stepSatoshiPreview(-1)">
-                    <span>‹</span>
-                  </button>
-
                   <img
-                    :src="project.previewImages[satoshiPreviewIndex]"
-                    :srcset="`${project.previewImages[satoshiPreviewIndex].replace('.webp', '-480w.webp')} 480w, ${project.previewImages[satoshiPreviewIndex].replace('.webp', '-800w.webp')} 800w, ${project.previewImages[satoshiPreviewIndex]} 1200w`"
-                    sizes="(max-width: 920px) 100vw, 60vw"
-                    :alt="`${project.title} preview ${satoshiPreviewIndex + 1}`"
+                    :src="project.previewImage"
+                    :alt="`${project.title} main page preview`"
                     loading="lazy"
                     decoding="async"
-                    :style="{
-                      objectPosition: project.previewImagePositions ? project.previewImagePositions[satoshiPreviewIndex] : 'center center',
-                      objectFit: project.previewImageFits ? project.previewImageFits[satoshiPreviewIndex] : 'cover',
-                    }"
-                    @click="openPreview(project.previewImages[satoshiPreviewIndex])"
+                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                    @error="onImgError($event, project)"
+                    @click="openPreview(project.previewImage)"
                   />
-
-                  <button class="project-image-arrow project-image-arrow-right" type="button" aria-label="Next image" @click="stepSatoshiPreview(1)">
-                    <span>›</span>
-                  </button>
                 </figure>
-
-                <div class="project-image-thumbs">
-                  <figure
-                    v-for="(imgSrc, idx) in project.previewImages"
-                    :key="imgSrc"
-                    class="project-image-thumb"
-                    :class="{ 'is-active': idx === satoshiPreviewIndex }"
-                  >
-                    <img
-                      :src="imgSrc"
-                      :srcset="`${imgSrc.replace('.webp', '-480w.webp')} 480w, ${imgSrc.replace('.webp', '-800w.webp')} 800w, ${imgSrc} 1200w`"
-                      sizes="120px"
-                      :alt="`${project.title} thumb ${idx + 1}`"
-                      loading="lazy"
-                      decoding="async"
-                      :style="{
-                        objectPosition: project.previewImagePositions ? project.previewImagePositions[idx] : 'center center',
-                        objectFit: project.previewImageFits ? project.previewImageFits[idx] : 'cover',
-                      }"
-                      @click="setSatoshiPreview(idx)"
-                    />
-                  </figure>
-                </div>
               </div>
 
               <div v-else class="project-preview-grid">
-                <div v-for="panel in project.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
-                  <div class="mock-label">{{ panel.title }}</div>
-                  <div class="mock-frame">
-                    <template v-if="panel.type === 'homepage'">
-                      <div class="mock-hero-strip"></div>
-                      <div class="mock-content-grid">
-                        <span></span><span></span><span></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'menu'">
-                      <div class="mock-menu-line wide"></div>
-                      <div class="mock-menu-line"></div>
-                      <div class="mock-menu-line"></div>
-                      <div class="mock-menu-line short"></div>
-                    </template>
-                    <template v-else-if="panel.type === 'reservation'">
-                      <div class="mock-reserve-calendar"></div>
-                      <div class="mock-button-row">
-                        <span></span><span></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'inbox'">
-                      <div class="mock-mail-header"></div>
-                      <div class="mock-mail-list">
-                        <span v-for="index in 3" :key="index"></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'filters'">
-                      <div class="mock-filter-chip-row">
-                        <span></span><span></span><span></span>
-                      </div>
-                      <div class="mock-automation-graph"></div>
-                    </template>
-                    <template v-else-if="panel.type === 'categories'">
-                      <div class="mock-category-list">
-                        <span></span><span></span><span></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'workspace'">
-                      <div class="mock-workspace-header"></div>
-                      <div class="mock-workspace-grid">
-                        <span></span><span></span><span></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'notes'">
-                      <div class="mock-note-lines">
-                        <span></span><span></span><span></span><span></span>
-                      </div>
-                    </template>
-                    <template v-else-if="panel.type === 'reports'">
-                      <div class="mock-report-card"></div>
-                      <div class="mock-report-bars">
-                        <span></span><span></span><span></span>
-                      </div>
-                    </template>
+                <template v-if="project.previewImage">
+                  <figure class="project-image-hero-full">
+                    <img
+                      :src="project.previewImage"
+                      :alt="`${project.title} preview`"
+                      loading="lazy"
+                      decoding="async"
+                      :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                      @error="onImgError($event, project)"
+                      @click="openPreview(project.previewImage)"
+                    />
+                  </figure>
+                </template>
+                <template v-else>
+                  <div v-for="panel in project.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
+                    <div class="mock-label">{{ panel.title }}</div>
+                    <div class="mock-frame">
+                      <template v-if="panel.type === 'homepage'">
+                        <div class="mock-hero-strip"></div>
+                        <div class="mock-content-grid">
+                          <span></span><span></span><span></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'menu'">
+                        <div class="mock-menu-line wide"></div>
+                        <div class="mock-menu-line"></div>
+                        <div class="mock-menu-line"></div>
+                        <div class="mock-menu-line short"></div>
+                      </template>
+                      <template v-else-if="panel.type === 'reservation'">
+                        <div class="mock-reserve-calendar"></div>
+                        <div class="mock-button-row">
+                          <span></span><span></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'inbox'">
+                        <div class="mock-mail-header"></div>
+                        <div class="mock-mail-list">
+                          <span v-for="index in 3" :key="index"></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'filters'">
+                        <div class="mock-filter-chip-row">
+                          <span></span><span></span><span></span>
+                        </div>
+                        <div class="mock-automation-graph"></div>
+                      </template>
+                      <template v-else-if="panel.type === 'categories'">
+                        <div class="mock-category-list">
+                          <span></span><span></span><span></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'workspace'">
+                        <div class="mock-workspace-header"></div>
+                        <div class="mock-workspace-grid">
+                          <span></span><span></span><span></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'notes'">
+                        <div class="mock-note-lines">
+                          <span></span><span></span><span></span><span></span>
+                        </div>
+                      </template>
+                      <template v-else-if="panel.type === 'reports'">
+                        <div class="mock-report-card"></div>
+                        <div class="mock-report-bars">
+                          <span></span><span></span><span></span>
+                        </div>
+                      </template>
+                    </div>
                   </div>
-                </div>
+                </template>
               </div>
             </div>
           </article>

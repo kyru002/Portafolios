@@ -9,24 +9,31 @@ import StatsSection from './components/StatsSection.vue'
 import SectionDivider from './components/SectionDivider.vue'
 import AboutFuture from './components/AboutFuture.vue'
 
+const CONTACT_EMAIL = 'enriqueabadromero02@gmail.com'
+const DEFAULT_FALLBACK_IMAGE = '/suport-desk-4.png'
+
 const navigation = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Technologies', href: '#tech' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Sobre mí', href: '#about' },
+  { label: 'Proyectos', href: '#projects' },
+  { label: 'Tecnologías', href: '#tech' },
+  { label: 'Contacto', href: '#contact' },
 ]
 
-const heroFacts = ['Available for opportunities', 'AI + Full Stack', 'Product-first design']
+const heroFacts = ['Disponible para oportunidades', 'IA + Full Stack', 'Diseño centrado en producto']
+
+function isFullImageProject(project) {
+  return project && ['viejo-roble', 'topcon', 'ticketing-app', 'satoshi-spain'].includes(project.id)
+}
 
 const projects = [
   {
     id: 'coding-404',
     featured: true,
-    category: 'Final Project',
+    category: 'Proyecto final',
     title: 'CODING 404',
-    role: 'Degree capstone and product direction',
+    role: 'Trabajo final de grado y dirección de producto',
     description:
-      'Capstone project that tackles low engagement in traditional programming education. Full points, streaks, achievements and interactive exercises with instant feedback.',
+      'Proyecto final orientado a aumentar la motivación en el aprendizaje de programación: puntos, rachas, logros y ejercicios interactivos con feedback instantáneo.',
     stack: ['Vue', 'Node.js', 'JavaScript', 'SQL', 'Gamification'],
     ctaLive: 'https://kyru002.github.io/Coding404/',
     ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
@@ -35,28 +42,28 @@ const projects = [
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
     metrics: [
-      { label: 'Active streak', value: '12' },
-      { label: 'Lessons', value: '248' },
-      { label: 'XP today', value: '980' },
+      { label: 'Racha activa', value: '12' },
+      { label: 'Lecciones', value: '248' },
+      { label: 'XP hoy', value: '980' },
     ],
     panels: [
       {
-        title: 'Learning dashboard',
+        title: 'Panel de aprendizaje',
         type: 'dashboard',
       },
       {
-        title: 'Mobile route',
+        title: 'Ruta móvil',
         type: 'mobile',
       },
       {
-        title: 'Progress system',
+        title: 'Sistema de progreso',
         type: 'progress',
       },
     ],
     bullets: [
-      'Learning paths with progressive difficulty',
-      'Progression system designed for retention',
-      'Instant feedback and reward loops',
+      'Rutas de aprendizaje con dificultad progresiva',
+      'Sistema de progreso pensado para retención',
+      'Feedback instantáneo y bucles de recompensa',
     ],
   },
   {
@@ -64,49 +71,49 @@ const projects = [
     featured: false,
     category: 'Freelance',
     title: 'El Viejo Roble',
-    role: 'Full stack development and responsive UX',
+    role: 'Desarrollo full stack y UX responsive',
     description:
-      'Complete restaurant website with reservation system, menu management and responsive design. Currently under maintenance.',
+      'Web completa para restaurante con sistema de reservas, gestión de carta y diseño responsive. Actualmente en mantenimiento.',
     stack: ['Vue', 'Node.js', 'SQL', 'Responsive UI'],
     ctaLive: 'http://www.elviejoroblesabadell.es',
     ctaCode: 'https://github.com/kyru002/WebElViejoRoble-Portafolios',
     previewTone: 'restaurant',
     previewImage: '/el-viejo-roble-1.png',
     panels: [
-      { title: 'Homepage', type: 'homepage' },
-      { title: 'Menu page', type: 'menu' },
-      { title: 'Reservation system UI', type: 'reservation' },
+      { title: 'Página principal', type: 'homepage' },
+      { title: 'Página de carta', type: 'menu' },
+      { title: 'UI de reservas', type: 'reservation' },
     ],
   },
   {
     id: 'ticketing-app',
     featured: false,
-    category: 'Class Project',
-    title: 'Ticketing App',
-    role: 'Frontend + Backend (class project)',
+    category: 'Proyecto de clase',
+    title: 'App de Ticketing',
+    role: 'Frontend + Backend (proyecto de clase)',
     description:
-      'Ticketing application built as a class project: create tickets, assign, track status, and basic auth. Built with Vue and Node.js.',
+      'Aplicación de ticketing: creación de incidencias, asignación, seguimiento de estado y autenticación básica. Construida con Vue y Node.js.',
     stack: ['Vue', 'Node.js', 'MongoDB'],
     ctaLive: '',
-    ctaCode: '',
+    ctaCode: 'https://github.com/kyru002/SupportDesk1',
     previewTone: 'productivity',
     previewImage: '/suport-desk-1.png',
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
     panels: [
-      { title: 'Issue list', type: 'inbox' },
-      { title: 'Ticket details', type: 'workspace' },
-      { title: 'Assign & status', type: 'reports' },
+      { title: 'Lista de incidencias', type: 'inbox' },
+      { title: 'Detalle del ticket', type: 'workspace' },
+      { title: 'Asignación y estado', type: 'reports' },
     ],
   },
   {
     id: 'topcon',
     featured: false,
-    category: 'Enterprise Application',
+    category: 'Aplicación empresarial',
     title: 'TopCon Reporting',
-    role: 'Internal reporting and collaboration system',
+    role: 'Sistema interno de informes y colaboración',
     description:
-      'Internal reporting app similar to OneNote that enables employees to create, manage and collaborate on reports efficiently.',
+      'Aplicación interna tipo OneNote para crear, gestionar y colaborar en informes de forma eficiente.',
     stack: ['JavaScript', 'CRUD', 'Enterprise UX', 'MongoDB'],
     ctaLive: 'https://axis-brook-34332755.figma.site',
     ctaCode: 'https://github.com/kyru002/Pruebas_Sistema_Informes',
@@ -115,16 +122,15 @@ const projects = [
     previewImageFallback: '/suport-desk-4.png',
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
-   
   },
   {
     id: 'satoshi-spain',
     featured: false,
-    category: 'Collaboration',
-    title: 'Satoshi Spain Website',
-    role: 'First professional team project',
+    category: 'Colaboración',
+    title: 'Web Satoshi Spain',
+    role: 'Primer proyecto profesional en equipo',
     description:
-      'Collaborative development of the company website with modern design and performance optimization. My first professional team project.',
+      'Desarrollo colaborativo de la web de la empresa con diseño moderno y optimización de rendimiento. Mi primer proyecto profesional en equipo.',
     stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
     ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
     ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
@@ -135,7 +141,7 @@ const projects = [
   },
 ]
 
-// Lightbox state for image preview
+// Estado del modal para previsualizar imágenes
 const modalOpen = ref(false)
 const modalSrc = ref('')
 
@@ -150,20 +156,20 @@ function closePreview() {
 }
 
 function onImgError(event, project) {
-  const fallback = project && project.previewImageFallback ? project.previewImageFallback : '/suport-desk-4.png'
-  if (event && event.target) event.target.src = fallback
+  const fallback = project?.previewImageFallback || DEFAULT_FALLBACK_IMAGE
+  if (event?.target) event.target.src = fallback
 }
 
 const techStack = [
-  { label: 'HTML', detail: 'Semantic structure and scalable foundations', value: 95 },
-  { label: 'CSS', detail: 'Motion systems, glassmorphism, layout precision', value: 95 },
-  { label: 'JavaScript', detail: 'Interactive product logic and UI orchestration', value: 90 },
-  { label: 'Vue', detail: 'Component architecture for modern interfaces', value: 88 },
-  { label: 'Node.js', detail: 'Backend services and API integration', value: 84 },
-  { label: 'Python', detail: 'AI tooling and data-oriented workflows', value: 82 },
-  { label: 'Java', detail: 'Strong backend fundamentals', value: 76 },
-  { label: 'SQL', detail: 'Data modeling and persistence design', value: 86 },
-  { label: 'Git', detail: 'Collaborative engineering workflow', value: 92 },
+  { label: 'HTML', detail: 'Estructura semántica y bases escalables', value: 95 },
+  { label: 'CSS', detail: 'Motion, glassmorphism y precisión en layout', value: 95 },
+  { label: 'JavaScript', detail: 'Lógica interactiva y orquestación de UI', value: 90 },
+  { label: 'Vue', detail: 'Arquitectura de componentes para interfaces modernas', value: 88 },
+  { label: 'Node.js', detail: 'Servicios backend e integración de APIs', value: 84 },
+  { label: 'Python', detail: 'Herramientas de IA y flujos orientados a datos', value: 82 },
+  { label: 'Java', detail: 'Fundamentos sólidos de backend', value: 76 },
+  { label: 'SQL', detail: 'Modelado de datos y diseño de persistencia', value: 86 },
+  { label: 'Git', detail: 'Flujo de trabajo colaborativo', value: 92 },
 ]
 
 const contactIcons = [IconGithub, IconLinkedin, IconMail]
@@ -171,7 +177,7 @@ const contactIcons = [IconGithub, IconLinkedin, IconMail]
 const contactLinks = [
   { label: 'GitHub', href: 'https://github.com/kyru002' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enrique-abad-romero-098a282bb/' },
-  { label: 'Email', href: 'mailto:enriqueabadromero02@gmail.com' },
+  { label: 'Correo', href: `mailto:${CONTACT_EMAIL}` },
 ]
 
 let observer
@@ -248,7 +254,7 @@ onBeforeUnmount(() => {
         <span class="brand-mark"><IconSpark /></span>
         <span class="brand-copy">
           <strong>Kike Abad</strong>
-          <small>Full Stack & AI</small>
+          <small>Full Stack e IA</small>
         </span>
       </a>
 
@@ -256,21 +262,21 @@ onBeforeUnmount(() => {
         <a v-for="item in navigation" :key="item.href" :href="item.href">{{ item.label }}</a>
       </nav>
 
-      <a class="header-cta button button-primary" href="#contact">Let's Talk</a>
+      <a class="header-cta button button-primary" href="#contact">Hablemos</a>
     </header>
 
     <main>
       <section id="inicio" class="hero section">
         <div class="hero-copy">
-          <h1>Web Application Developer</h1>
+          <h1>Desarrollador de Aplicaciones Web</h1>
           <p class="hero-lead">
-            Building intelligent systems, product-first interfaces, and data-aware experiences for modern AI
-            startups and high-end tech teams.
+            Construyo sistemas inteligentes, interfaces centradas en producto y experiencias orientadas a datos
+            para startups de IA y equipos tech exigentes.
           </p>
 
           <div class="hero-actions">
-            <a class="button button-primary" href="#projects">View Projects</a>
-            <a class="button button-secondary" href="#contact">Contact Me</a>
+            <a class="button button-primary" href="#projects">Ver proyectos</a>
+            <a class="button button-secondary" href="#contact">Contactar</a>
           </div>
 
           <div class="hero-meta">
@@ -291,11 +297,11 @@ onBeforeUnmount(() => {
 
       <section id="projects" class="section projects-section">
         <div class="section-heading projects-heading" data-reveal>
-          <p class="eyebrow">Projects</p>
-          <h2>Product showcase first. Everything else supports the work.</h2>
+          <p class="eyebrow">Proyectos</p>
+          <h2>El producto primero. Todo lo demás acompaña al trabajo.</h2>
           <p>
-            Large cards, real product presentation, and image-driven mockups designed to look like launch pages for
-            modern AI and SaaS products.
+            Tarjetas grandes, presentación real de producto y mockups basados en imagen para que parezcan páginas de
+            lanzamiento de productos modernos.
           </p>
         </div>
 
@@ -314,11 +320,11 @@ onBeforeUnmount(() => {
             <div class="project-copy">
               <div class="project-kicker">
                 <span>{{ project.category }}</span>
-                <span class="project-badge">{{ project.featured ? 'Featured' : 'Case Study' }}</span>
+                <span class="project-badge">{{ project.featured ? 'Destacado' : 'Caso de estudio' }}</span>
               </div>
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
-              <p class="project-role">Role: {{ project.role }}</p>
+              <p class="project-role">Rol: {{ project.role }}</p>
 
               <div class="project-tags">
                 <span v-for="tag in project.stack" :key="tag">{{ tag }}</span>
@@ -329,14 +335,30 @@ onBeforeUnmount(() => {
               </div>
 
               <div class="project-actions">
-                <a class="button button-primary button-small" :href="project.ctaLive" target="_blank" rel="noreferrer">View Live</a>
-                <a class="button button-secondary button-small" :href="project.ctaCode" target="_blank" rel="noreferrer">View Code</a>
+                <a
+                  v-if="project.ctaLive"
+                  class="button button-primary button-small"
+                  :href="project.ctaLive"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Ver en vivo
+                </a>
+                <a
+                  v-if="project.ctaCode"
+                  class="button button-secondary button-small"
+                  :href="project.ctaCode"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Ver código
+                </a>
               </div>
             </div>
 
             <div class="project-visual" :class="project.featured ? 'project-visual-featured' : ''">
               <div class="visual-caption">
-                <span>Visual preview</span>
+                <span>Vista previa</span>
                 <strong>{{ project.title }}</strong>
               </div>
 
@@ -347,20 +369,20 @@ onBeforeUnmount(() => {
                   </div>
                   <div class="mock-dashboard">
                     <div class="mock-sidebar">
-                      <span class="mock-pill active">Dashboard</span>
-                      <span class="mock-pill">Learning Paths</span>
-                      <span class="mock-pill">Progress</span>
-                      <span class="mock-pill">Challenges</span>
+                      <span class="mock-pill active">Panel</span>
+                      <span class="mock-pill">Rutas</span>
+                      <span class="mock-pill">Progreso</span>
+                      <span class="mock-pill">Retos</span>
                     </div>
                     <div class="mock-main">
                       <div class="mock-hero-panel">
-                        <strong>Programming made addictive</strong>
-                        <p>Learn by doing, level up fast, and feel momentum with every lesson.</p>
+                        <strong>Programación que engancha</strong>
+                        <p>Aprende haciendo, sube de nivel rápido y gana inercia con cada lección.</p>
                       </div>
                       <div class="mock-card-row">
-                        <span class="mock-mini-card">XP streak</span>
-                        <span class="mock-mini-card">Daily goal</span>
-                        <span class="mock-mini-card">Badge unlocks</span>
+                        <span class="mock-mini-card">Racha</span>
+                        <span class="mock-mini-card">Objetivo</span>
+                        <span class="mock-mini-card">Logros</span>
                       </div>
                     </div>
                   </div>
@@ -368,75 +390,39 @@ onBeforeUnmount(() => {
                 <div class="feature-phone mock-phone">
                   <div class="phone-notch"></div>
                   <div class="phone-stack">
-                    <span class="phone-card">Path 04</span>
+                    <span class="phone-card">Ruta 04</span>
                     <span class="phone-card highlight">+120 XP</span>
-                    <span class="phone-card">Instant feedback</span>
+                    <span class="phone-card">Feedback instantáneo</span>
                   </div>
                 </div>
                 <div class="feature-side">
                   <div class="feature-figure">
                     <span class="feature-ring"></span>
-                    <strong>Progress system</strong>
-                    <small>Gamification loops</small>
+                    <strong>Sistema de progreso</strong>
+                    <small>Bucles de gamificación</small>
                   </div>
                   <div class="feature-list">
-                    <span>Onboarding and retention design</span>
-                    <span>Microcopy and motivation flow</span>
-                    <span>Product thinking around habit formation</span>
+                    <span>Onboarding y diseño de retención</span>
+                    <span>Microcopy y flujo de motivación</span>
+                    <span>Product thinking sobre hábitos</span>
                   </div>
                 </div>
               </div>
 
-              <div v-else-if="project.id === 'viejo-roble'" class="project-image-showcase-full">
+              <div v-else-if="isFullImageProject(project)" class="project-image-showcase-full">
                 <figure class="project-image-hero-full">
                   <img
                     :src="project.previewImage"
-                    :alt="`${project.title} main page preview`"
+                    :alt="`Vista previa de ${project.title}`"
                     loading="lazy"
                     decoding="async"
-                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
-                    @error="onImgError($event, project)"
-                    @click="openPreview(project.previewImage)"
-                  />
-                </figure>
-              </div>
-
-              <div v-else-if="project.id === 'topcon'" class="project-image-showcase-full">
-                <figure class="project-image-hero-full">
-                  <img
-                    :src="project.previewImage"
-                    :alt="`${project.title} main page preview`"
-                    loading="lazy"
-                    decoding="async"
-                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
-                    @error="onImgError($event, project)"
-                    @click="openPreview(project.previewImage)"
-                  />
-                </figure>
-              </div>
-
-              <div v-else-if="project.id === 'ticketing-app'" class="project-image-showcase-full">
-                <figure class="project-image-hero-full">
-                  <img
-                    :src="project.previewImage"
-                    :alt="`${project.title} main page preview`"
-                    loading="lazy"
-                    decoding="async"
-                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
-                    @error="onImgError($event, project)"
-                    @click="openPreview(project.previewImage)"
-                  />
-                </figure>
-              </div>
-
-              <div v-else-if="project.id === 'satoshi-spain'" class="project-image-showcase-full">
-                <figure class="project-image-hero-full">
-                  <img
-                    :src="project.previewImage"
-                    :alt="`${project.title} main page preview`"
-                    loading="lazy"
-                    decoding="async"
-                    :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
+                    :style="{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: project.previewImageFit || 'cover',
+                      objectPosition: project.previewImagePosition || 'center center',
+                      display: 'block',
+                    }"
                     @error="onImgError($event, project)"
                     @click="openPreview(project.previewImage)"
                   />
@@ -448,7 +434,7 @@ onBeforeUnmount(() => {
                   <figure class="project-image-hero-full">
                     <img
                       :src="project.previewImage"
-                      :alt="`${project.title} preview`"
+                      :alt="`Vista previa de ${project.title}`"
                       loading="lazy"
                       decoding="async"
                       :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
@@ -526,11 +512,11 @@ onBeforeUnmount(() => {
 
       <section id="tech" class="section tech-section">
         <div class="section-heading tech-heading" data-reveal>
-          <p class="eyebrow">Tech Stack</p>
-          <h2>Elegant engineering foundations for AI and data-driven products.</h2>
+          <p class="eyebrow">Tecnologías</p>
+          <h2>Bases de ingeniería sólidas para productos con IA y datos.</h2>
           <p>
-            Full stack engineering mindset, with a clear path toward AI development and Data Analysis while keeping
-            product quality at the center.
+            Mentalidad full stack, con foco en desarrollo de IA y análisis de datos sin perder la calidad de
+            producto.
           </p>
         </div>
 
@@ -553,10 +539,10 @@ onBeforeUnmount(() => {
       <section id="contact" class="section contact-section">
         <div class="contact-card glass-panel" data-reveal>
           <div>
-            <p class="eyebrow">Contact</p>
-            <h2>Let’s build something together.</h2>
+            <p class="eyebrow">Contacto</p>
+            <h2>Construyamos algo juntos.</h2>
             <p>
-              Open to AI startups, modern SaaS teams, freelance premium clients, and remote international roles.
+              Abierto a startups de IA, equipos SaaS modernos, proyectos freelance y oportunidades remotas.
             </p>
           </div>
 
@@ -567,13 +553,13 @@ onBeforeUnmount(() => {
             </a>
           </div>
 
-          <a class="button button-primary" href="mailto:tu.email@ejemplo.com">Let’s build something together</a>
+          <a class="button button-primary" :href="`mailto:${CONTACT_EMAIL}`">Escríbeme</a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer" data-reveal>
-      <p>AI Engineer Portfolio</p>
+      <p>Portfolio de IA</p>
       <div class="footer-motion">
         <span></span>
         <span></span>
@@ -581,7 +567,7 @@ onBeforeUnmount(() => {
       </div>
     </footer>
     <div v-if="modalOpen" class="image-modal" @click.self="closePreview">
-      <img :src="modalSrc" :alt="'Preview of ' + modalSrc" />
+      <img :src="modalSrc" :alt="'Vista previa de ' + modalSrc" />
     </div>
   </div>
 </template>

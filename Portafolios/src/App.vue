@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 import IconSpark from './components/icons/IconSpark.vue'
 import IconGithub from './components/icons/IconGithub.vue'
 import IconLinkedin from './components/icons/IconLinkedin.vue'
@@ -22,50 +22,10 @@ const navigation = [
 const heroFacts = ['Disponible para oportunidades', 'IA + Full Stack', 'Diseño centrado en producto']
 
 function isFullImageProject(project) {
-  return project && ['viejo-roble', 'topcon', 'ticketing-app', 'satoshi-spain'].includes(project.id)
+  return project && ['viejo-roble', 'topcon', 'ticketing-app', 'satoshi-spain', 'coding-404'].includes(project.id)
 }
 
 const projects = [
-  {
-    id: 'coding-404',
-    featured: true,
-    category: 'Proyecto final',
-    title: 'CODING 404',
-    role: 'Trabajo final de grado y dirección de producto',
-    description:
-      'Proyecto final orientado a aumentar la motivación en el aprendizaje de programación: puntos, rachas, logros y ejercicios interactivos con feedback instantáneo.',
-    stack: ['Vue', 'Node.js', 'JavaScript', 'SQL', 'Gamification'],
-    ctaLive: 'https://kyru002.github.io/Coding404/',
-    ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
-    previewTone: 'learning',
-    previewImage: '/suport-desk-4.png',
-    previewImageFit: 'cover',
-    previewImagePosition: '50% 50%',
-    metrics: [
-      { label: 'Racha activa', value: '12' },
-      { label: 'Lecciones', value: '248' },
-      { label: 'XP hoy', value: '980' },
-    ],
-    panels: [
-      {
-        title: 'Panel de aprendizaje',
-        type: 'dashboard',
-      },
-      {
-        title: 'Ruta móvil',
-        type: 'mobile',
-      },
-      {
-        title: 'Sistema de progreso',
-        type: 'progress',
-      },
-    ],
-    bullets: [
-      'Rutas de aprendizaje con dificultad progresiva',
-      'Sistema de progreso pensado para retención',
-      'Feedback instantáneo y bucles de recompensa',
-    ],
-  },
   {
     id: 'viejo-roble',
     featured: false,
@@ -84,6 +44,39 @@ const projects = [
       { title: 'Página de carta', type: 'menu' },
       { title: 'UI de reservas', type: 'reservation' },
     ],
+  },
+  {
+    id: 'coding-404',
+    featured: false,
+    category: 'Proyecto final',
+    title: 'CODING 404',
+    role: 'Trabajo final de grado y dirección de producto',
+    description:
+      'Proyecto final orientado a aumentar la motivación en el aprendizaje de programación: puntos, rachas, logros y ejercicios interactivos con feedback instantáneo.',
+    stack: ['Vue', 'Node.js', 'JavaScript', 'SQL', 'Gamification'],
+    ctaLive: 'http://51.195.43.10:5000/',
+    ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
+    previewTone: 'learning',
+    previewImage: '/image.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
+    
+  },
+  {
+    id: 'satoshi-spain',
+    featured: false,
+    category: 'Colaboración',
+    title: 'Web Satoshi Spain',
+    role: 'Primer proyecto profesional en equipo',
+    description:
+      'Desarrollo colaborativo de la web de la empresa con diseño moderno y optimización de rendimiento. Mi primer proyecto profesional en equipo.',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
+    ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
+    ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
+    previewTone: 'collaboration',
+    previewImage: '/satoshi-foto-1.png',
+    previewImageFit: 'cover',
+    previewImagePosition: '50% 50%',
   },
   {
     id: 'ticketing-app',
@@ -120,22 +113,6 @@ const projects = [
     previewTone: 'enterprise',
     previewImage: '/sistema-informes-1.png',
     previewImageFallback: '/suport-desk-4.png',
-    previewImageFit: 'cover',
-    previewImagePosition: '50% 50%',
-  },
-  {
-    id: 'satoshi-spain',
-    featured: false,
-    category: 'Colaboración',
-    title: 'Web Satoshi Spain',
-    role: 'Primer proyecto profesional en equipo',
-    description:
-      'Desarrollo colaborativo de la web de la empresa con diseño moderno y optimización de rendimiento. Mi primer proyecto profesional en equipo.',
-    stack: ['HTML', 'CSS', 'JavaScript', 'Git'],
-    ctaLive: 'https://kyru002.github.io/Satoshi-Spain/',
-    ctaCode: 'https://github.com/kyru002/Satoshi-Spain',
-    previewTone: 'collaboration',
-    previewImage: '/satoshi-foto-1.png',
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
   },
@@ -180,8 +157,60 @@ const contactLinks = [
   { label: 'Correo', href: `mailto:${CONTACT_EMAIL}` },
 ]
 
+const currentProjectIndex = ref(0)
+const activeProject = computed(() => projects[currentProjectIndex.value])
+const transitionName = ref('carousel-fade')
+
+function nextSlide() {
+  transitionName.value = 'carousel-slide-next'
+  currentProjectIndex.value = (currentProjectIndex.value + 1) % projects.length
+}
+
+function prevSlide() {
+  transitionName.value = 'carousel-slide-prev'
+  currentProjectIndex.value = (currentProjectIndex.value - 1 + projects.length) % projects.length
+}
+
+// goToSlide handles indicator click slide transitions dynamically
+function goToSlide(index) {
+  if (index > currentProjectIndex.value) {
+    transitionName.value = 'carousel-slide-next'
+  } else if (index < currentProjectIndex.value) {
+    transitionName.value = 'carousel-slide-prev'
+  }
+  currentProjectIndex.value = index
+}
+
+function handlePrev() {
+  prevSlide()
+}
+
+function handleNext() {
+  nextSlide()
+}
+
+function handleGoTo(index) {
+  goToSlide(index)
+}
+
+function handlePointerMove(event) {
+  updateTilt(event.currentTarget, event)
+}
+
+function handlePointerEnter(event) {
+  event.currentTarget.classList.add('is-tilting')
+}
+
+function handlePointerLeave(event) {
+  const target = event.currentTarget
+  target.classList.remove('is-tilting')
+  target.style.setProperty('--tilt-x', '0deg')
+  target.style.setProperty('--tilt-y', '0deg')
+  target.style.setProperty('--glow-x', '50%')
+  target.style.setProperty('--glow-y', '50%')
+}
+
 let observer
-let tiltCleanup = []
 
 function updateTilt(element, event) {
   const bounds = element.getBoundingClientRect()
@@ -198,7 +227,6 @@ function updateTilt(element, event) {
 
 onMounted(() => {
   const revealTargets = document.querySelectorAll('[data-reveal]')
-  const tiltTargets = document.querySelectorAll('[data-tilt]')
 
   observer = new IntersectionObserver(
     (entries) => {
@@ -216,34 +244,10 @@ onMounted(() => {
   )
 
   revealTargets.forEach((target) => observer.observe(target))
-
-  tiltTargets.forEach((target) => {
-    const move = (event) => updateTilt(target, event)
-    const enter = () => target.classList.add('is-tilting')
-    const leave = () => {
-      target.classList.remove('is-tilting')
-      target.style.setProperty('--tilt-x', '0deg')
-      target.style.setProperty('--tilt-y', '0deg')
-      target.style.setProperty('--glow-x', '50%')
-      target.style.setProperty('--glow-y', '50%')
-    }
-
-    target.addEventListener('pointermove', move)
-    target.addEventListener('pointerenter', enter)
-    target.addEventListener('pointerleave', leave)
-
-    tiltCleanup.push(() => {
-      target.removeEventListener('pointermove', move)
-      target.removeEventListener('pointerenter', enter)
-      target.removeEventListener('pointerleave', leave)
-    })
-  })
 })
 
 onBeforeUnmount(() => {
   observer?.disconnect()
-  tiltCleanup.forEach((dispose) => dispose())
-  tiltCleanup = []
 })
 </script>
 
@@ -305,206 +309,232 @@ onBeforeUnmount(() => {
           </p>
         </div>
 
-        <div class="projects-stack">
-          <article
-            v-for="(project, index) in projects"
-            :key="project.id"
-            class="project-card glass-panel"
-            :class="[project.featured ? 'project-featured' : 'project-standard', `theme-${project.previewTone}`]"
-            data-reveal
-            data-tilt
-            :style="{ '--reveal-delay': `${index * 90}ms` }"
-          >
-            <div class="project-backdrop"></div>
+        <div class="projects-carousel-container">
+          <button class="carousel-arrow prev-arrow" @click="handlePrev" aria-label="Proyecto anterior">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
+            </svg>
+          </button>
 
-            <div class="project-copy">
-              <div class="project-kicker">
-                <span>{{ project.category }}</span>
-                <span class="project-badge">{{ project.featured ? 'Destacado' : 'Caso de estudio' }}</span>
-              </div>
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              <p class="project-role">Rol: {{ project.role }}</p>
+          <div class="projects-carousel-track">
+            <transition :name="transitionName" mode="out-in">
+              <article
+                :key="activeProject.id"
+                class="project-card glass-panel"
+                :class="[activeProject.featured ? 'project-featured' : 'project-standard', `theme-${activeProject.previewTone}`]"
+                @pointermove="handlePointerMove"
+                @pointerenter="handlePointerEnter"
+                @pointerleave="handlePointerLeave"
+              >
+                <div class="project-backdrop"></div>
 
-              <div class="project-tags">
-                <span v-for="tag in project.stack" :key="tag">{{ tag }}</span>
-              </div>
-
-              <div v-if="project.featured" class="project-bullets">
-                <span v-for="bullet in project.bullets" :key="bullet">{{ bullet }}</span>
-              </div>
-
-              <div class="project-actions">
-                <a
-                  v-if="project.ctaLive"
-                  class="button button-primary button-small"
-                  :href="project.ctaLive"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ver en vivo
-                </a>
-                <a
-                  v-if="project.ctaCode"
-                  class="button button-secondary button-small"
-                  :href="project.ctaCode"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ver código
-                </a>
-              </div>
-            </div>
-
-            <div class="project-visual" :class="project.featured ? 'project-visual-featured' : ''">
-              <div class="visual-caption">
-                <span>Vista previa</span>
-                <strong>{{ project.title }}</strong>
-              </div>
-
-              <div v-if="project.featured" class="feature-showcase">
-                <div class="feature-large mock-screen">
-                  <div class="mock-topbar">
-                    <span></span><span></span><span></span>
+                <div class="project-copy">
+                  <div class="project-kicker">
+                    <span>{{ activeProject.category }}</span>
+                    <span class="project-badge">{{ activeProject.featured ? 'Destacado' : 'Caso de estudio' }}</span>
                   </div>
-                  <div class="mock-dashboard">
-                    <div class="mock-sidebar">
-                      <span class="mock-pill active">Panel</span>
-                      <span class="mock-pill">Rutas</span>
-                      <span class="mock-pill">Progreso</span>
-                      <span class="mock-pill">Retos</span>
-                    </div>
-                    <div class="mock-main">
-                      <div class="mock-hero-panel">
-                        <strong>Programación que engancha</strong>
-                        <p>Aprende haciendo, sube de nivel rápido y gana inercia con cada lección.</p>
+                  <h3>{{ activeProject.title }}</h3>
+                  <p>{{ activeProject.description }}</p>
+                  <p class="project-role">Rol: {{ activeProject.role }}</p>
+
+                  <div class="project-tags">
+                    <span v-for="tag in activeProject.stack" :key="tag">{{ tag }}</span>
+                  </div>
+
+                  <div v-if="activeProject.featured" class="project-bullets">
+                    <span v-for="bullet in activeProject.bullets" :key="bullet">{{ bullet }}</span>
+                  </div>
+
+                  <div class="project-actions">
+                    <a
+                      v-if="activeProject.ctaLive"
+                      class="button button-primary button-small"
+                      :href="activeProject.ctaLive"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Ver en vivo
+                    </a>
+                    <a
+                      v-if="activeProject.ctaCode"
+                      class="button button-secondary button-small"
+                      :href="activeProject.ctaCode"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Ver código
+                    </a>
+                  </div>
+                </div>
+
+                <div class="project-visual" :class="activeProject.featured ? 'project-visual-featured' : ''">
+                  <div class="visual-caption">
+                    <span>Vista previa</span>
+                    <strong>{{ activeProject.title }}</strong>
+                  </div>
+
+                  <div v-if="activeProject.featured" class="feature-showcase">
+                    <div class="feature-large mock-screen">
+                      <div class="mock-topbar">
+                        <span></span><span></span><span></span>
                       </div>
-                      <div class="mock-card-row">
-                        <span class="mock-mini-card">Racha</span>
-                        <span class="mock-mini-card">Objetivo</span>
-                        <span class="mock-mini-card">Logros</span>
+                      <div class="mock-dashboard">
+                        <div class="mock-sidebar">
+                          <span class="mock-pill active">Panel</span>
+                          <span class="mock-pill">Rutas</span>
+                          <span class="mock-pill">Progreso</span>
+                          <span class="mock-pill">Retos</span>
+                        </div>
+                        <div class="mock-main">
+                          <div class="mock-hero-panel">
+                            <strong>Programación que engancha</strong>
+                            <p>Aprende haciendo, sube de nivel rápido y gana inercia con cada lección.</p>
+                          </div>
+                          <div class="mock-card-row">
+                            <span class="mock-mini-card">Racha</span>
+                            <span class="mock-mini-card">Objetivo</span>
+                            <span class="mock-mini-card">Logros</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="feature-phone mock-phone">
+                      <div class="phone-notch"></div>
+                      <div class="phone-stack">
+                        <span class="phone-card">Ruta 04</span>
+                        <span class="phone-card highlight">+120 XP</span>
+                        <span class="phone-card">Feedback instantáneo</span>
+                      </div>
+                    </div>
+                    <div class="feature-side">
+                      <div class="feature-figure">
+                        <span class="feature-ring"></span>
+                        <strong>Sistema de progreso</strong>
+                        <small>Bucles de gamificación</small>
+                      </div>
+                      <div class="feature-list">
+                        <span>Onboarding y diseño de retención</span>
+                        <span>Microcopy y flujo de motivación</span>
+                        <span>Product thinking sobre hábitos</span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="feature-phone mock-phone">
-                  <div class="phone-notch"></div>
-                  <div class="phone-stack">
-                    <span class="phone-card">Ruta 04</span>
-                    <span class="phone-card highlight">+120 XP</span>
-                    <span class="phone-card">Feedback instantáneo</span>
-                  </div>
-                </div>
-                <div class="feature-side">
-                  <div class="feature-figure">
-                    <span class="feature-ring"></span>
-                    <strong>Sistema de progreso</strong>
-                    <small>Bucles de gamificación</small>
-                  </div>
-                  <div class="feature-list">
-                    <span>Onboarding y diseño de retención</span>
-                    <span>Microcopy y flujo de motivación</span>
-                    <span>Product thinking sobre hábitos</span>
-                  </div>
-                </div>
-              </div>
 
-              <div v-else-if="isFullImageProject(project)" class="project-image-showcase-full">
-                <figure class="project-image-hero-full">
-                  <img
-                    :src="project.previewImage"
-                    :alt="`Vista previa de ${project.title}`"
-                    loading="lazy"
-                    decoding="async"
-                    :style="{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: project.previewImageFit || 'cover',
-                      objectPosition: project.previewImagePosition || 'center center',
-                      display: 'block',
-                    }"
-                    @error="onImgError($event, project)"
-                    @click="openPreview(project.previewImage)"
-                  />
-                </figure>
-              </div>
-
-              <div v-else class="project-preview-grid">
-                <template v-if="project.previewImage">
-                  <figure class="project-image-hero-full">
-                    <img
-                      :src="project.previewImage"
-                      :alt="`Vista previa de ${project.title}`"
-                      loading="lazy"
-                      decoding="async"
-                      :style="{ width: '100%', height: '100%', objectFit: project.previewImageFit || 'cover', objectPosition: project.previewImagePosition || 'center center', display: 'block' }"
-                      @error="onImgError($event, project)"
-                      @click="openPreview(project.previewImage)"
-                    />
-                  </figure>
-                </template>
-                <template v-else>
-                  <div v-for="panel in project.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
-                    <div class="mock-label">{{ panel.title }}</div>
-                    <div class="mock-frame">
-                      <template v-if="panel.type === 'homepage'">
-                        <div class="mock-hero-strip"></div>
-                        <div class="mock-content-grid">
-                          <span></span><span></span><span></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'menu'">
-                        <div class="mock-menu-line wide"></div>
-                        <div class="mock-menu-line"></div>
-                        <div class="mock-menu-line"></div>
-                        <div class="mock-menu-line short"></div>
-                      </template>
-                      <template v-else-if="panel.type === 'reservation'">
-                        <div class="mock-reserve-calendar"></div>
-                        <div class="mock-button-row">
-                          <span></span><span></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'inbox'">
-                        <div class="mock-mail-header"></div>
-                        <div class="mock-mail-list">
-                          <span v-for="index in 3" :key="index"></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'filters'">
-                        <div class="mock-filter-chip-row">
-                          <span></span><span></span><span></span>
-                        </div>
-                        <div class="mock-automation-graph"></div>
-                      </template>
-                      <template v-else-if="panel.type === 'categories'">
-                        <div class="mock-category-list">
-                          <span></span><span></span><span></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'workspace'">
-                        <div class="mock-workspace-header"></div>
-                        <div class="mock-workspace-grid">
-                          <span></span><span></span><span></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'notes'">
-                        <div class="mock-note-lines">
-                          <span></span><span></span><span></span><span></span>
-                        </div>
-                      </template>
-                      <template v-else-if="panel.type === 'reports'">
-                        <div class="mock-report-card"></div>
-                        <div class="mock-report-bars">
-                          <span></span><span></span><span></span>
-                        </div>
-                      </template>
-                    </div>
+                  <div v-else-if="isFullImageProject(activeProject)" class="project-image-showcase-full">
+                    <figure class="project-image-hero-full">
+                      <img
+                        :src="activeProject.previewImage"
+                        :alt="`Vista previa de ${activeProject.title}`"
+                        loading="lazy"
+                        decoding="async"
+                        :style="{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: activeProject.previewImageFit || 'cover',
+                          objectPosition: activeProject.previewImagePosition || 'center center',
+                          display: 'block',
+                        }"
+                        @error="onImgError($event, activeProject)"
+                        @click="openPreview(activeProject.previewImage)"
+                      />
+                    </figure>
                   </div>
-                </template>
-              </div>
-            </div>
-          </article>
+
+                  <div v-else class="project-preview-grid">
+                    <template v-if="activeProject.previewImage">
+                      <figure class="project-image-hero-full">
+                        <img
+                          :src="activeProject.previewImage"
+                          :alt="`Vista previa de ${activeProject.title}`"
+                          loading="lazy"
+                          decoding="async"
+                          :style="{ width: '100%', height: '100%', objectFit: activeProject.previewImageFit || 'cover', objectPosition: activeProject.previewImagePosition || 'center center', display: 'block' }"
+                          @error="onImgError($event, activeProject)"
+                          @click="openPreview(activeProject.previewImage)"
+                        />
+                      </figure>
+                    </template>
+                    <template v-else>
+                      <div v-for="panel in activeProject.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
+                        <div class="mock-label">{{ panel.title }}</div>
+                        <div class="mock-frame">
+                          <template v-if="panel.type === 'homepage'">
+                            <div class="mock-hero-strip"></div>
+                            <div class="mock-content-grid">
+                              <span></span><span></span><span></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'menu'">
+                            <div class="mock-menu-line wide"></div>
+                            <div class="mock-menu-line"></div>
+                            <div class="mock-menu-line"></div>
+                            <div class="mock-menu-line short"></div>
+                          </template>
+                          <template v-else-if="panel.type === 'reservation'">
+                            <div class="mock-reserve-calendar"></div>
+                            <div class="mock-button-row">
+                              <span></span><span></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'inbox'">
+                            <div class="mock-mail-header"></div>
+                            <div class="mock-mail-list">
+                              <span v-for="index in 3" :key="index"></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'filters'">
+                            <div class="mock-filter-chip-row">
+                              <span></span><span></span><span></span>
+                            </div>
+                            <div class="mock-automation-graph"></div>
+                          </template>
+                          <template v-else-if="panel.type === 'categories'">
+                            <div class="mock-category-list">
+                              <span></span><span></span><span></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'workspace'">
+                            <div class="mock-workspace-header"></div>
+                            <div class="mock-workspace-grid">
+                              <span></span><span></span><span></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'notes'">
+                            <div class="mock-note-lines">
+                              <span></span><span></span><span></span><span></span>
+                            </div>
+                          </template>
+                          <template v-else-if="panel.type === 'reports'">
+                            <div class="mock-report-card"></div>
+                            <div class="mock-report-bars">
+                              <span></span><span></span><span></span>
+                            </div>
+                          </template>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </article>
+            </transition>
+          </div>
+
+          <button class="carousel-arrow next-arrow" @click="handleNext" aria-label="Siguiente proyecto">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="carousel-indicators">
+          <button
+            v-for="(proj, idx) in projects"
+            :key="proj.id"
+            class="indicator-dot"
+            :class="{ active: idx === currentProjectIndex }"
+            @click="handleGoTo(idx)"
+            :aria-label="'Ver proyecto ' + proj.title"
+          ></button>
         </div>
       </section>
 
@@ -513,10 +543,9 @@ onBeforeUnmount(() => {
       <section id="tech" class="section tech-section">
         <div class="section-heading tech-heading" data-reveal>
           <p class="eyebrow">Tecnologías</p>
-          <h2>Bases de ingeniería sólidas para productos con IA y datos.</h2>
+          <h2>Conocimentos como dessarrollador web Full Stack </h2>
           <p>
-            Mentalidad full stack, con foco en desarrollo de IA y análisis de datos sin perder la calidad de
-            producto.
+            Mentalidad full stack, con foco en desarrollo de IA y análisis de datos.
           </p>
         </div>
 

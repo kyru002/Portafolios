@@ -652,7 +652,7 @@
 .focus-icon { width: 56px; height: 56px; transform: translateZ(20px); transition: transform 260ms cubic-bezier(.2,.9,.28,1); }
 .focus-card:hover .focus-icon { transform: translateY(-8px) translateZ(20px); }
 
-.contact-icon { width: 20px; height: 20px; margin-right: 10px; display: inline-block; }
+.contact-icon { width: 20px; height: 20px; display: inline-block; }
 .contact-label { color: #dfeaff; }
 
 .projects-section {
@@ -667,6 +667,150 @@
 .projects-stack {
   display: grid;
   gap: 22px;
+}
+
+.projects-carousel-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.projects-carousel-track {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(8, 11, 18, 0.65);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 0;
+}
+
+.carousel-arrow:hover {
+  background: rgba(12, 17, 28, 0.88);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(119, 212, 255, 0.3);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev-arrow {
+  left: -24px;
+}
+
+.next-arrow {
+  right: -24px;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.indicator-dot.active {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  width: 24px;
+  border-radius: 5px;
+}
+
+/* Transición del Carrusel */
+.carousel-fade-enter-active,
+.carousel-fade-leave-active {
+  transition: opacity 0.6s ease;
+}
+
+.carousel-fade-enter-from,
+.carousel-fade-leave-to {
+  opacity: 0;
+}
+
+/* Transición por Click (Slide horizontal a la derecha/siguiente) */
+.carousel-slide-next-enter-active,
+.carousel-slide-next-leave-active {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+}
+.carousel-slide-next-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.carousel-slide-next-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Transición por Click (Slide horizontal a la izquierda/anterior) */
+.carousel-slide-prev-enter-active,
+.carousel-slide-prev-leave-active {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+}
+.carousel-slide-prev-enter-from {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.carousel-slide-prev-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+@media (max-width: 1400px) {
+  .prev-arrow {
+    left: 12px;
+  }
+  .next-arrow {
+    right: 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  .prev-arrow {
+    left: 8px;
+  }
+  .next-arrow {
+    right: 8px;
+  }
 }
 
 .project-card {
@@ -1663,22 +1807,16 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px 12px 52px;
+  padding: 12px 20px;
   border-radius: 14px;
   background: rgba(255,255,255,0.02);
   border: 1px solid var(--border);
   color: #dfeaff;
   text-decoration: none;
   transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
-  background-position: 18px center;
-  background-repeat: no-repeat;
 }
 
 .contact-links a:hover { transform: translateY(-4px); background: rgba(255,255,255,0.04); box-shadow: 0 14px 40px rgba(0,0,0,0.42); }
-
-.contact-links a:nth-child(1) { background-image: url('./icons/icon-github.svg'); }
-.contact-links a:nth-child(2) { background-image: url('./icons/icon-linkedin.svg'); }
-.contact-links a:nth-child(3) { background-image: url('./icons/icon-mail.svg'); }
 
 /* --- Custom interactive styles added --- */
 

@@ -51,6 +51,19 @@
   }
 }
 
+.text-gradient {
+  background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.animate-stagger-1 { animation: fadeUp 800ms cubic-bezier(.2,.9,.2,1) both; animation-delay: 100ms; }
+.animate-stagger-2 { animation: fadeUp 800ms cubic-bezier(.2,.9,.2,1) both; animation-delay: 250ms; }
+.animate-stagger-3 { animation: fadeUp 800ms cubic-bezier(.2,.9,.2,1) both; animation-delay: 400ms; }
+.animate-stagger-4 { animation: fadeUp 800ms cubic-bezier(.2,.9,.2,1) both; animation-delay: 550ms; }
+
 .page-shell {
   width: min(1280px, calc(100% - 48px));
   margin: 0 auto;
@@ -61,10 +74,12 @@
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border);
+  border-top-color: rgba(255, 255, 255, 0.12);
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(18, 23, 38, 0.88), rgba(9, 12, 20, 0.82));
+  background: linear-gradient(180deg, rgba(18, 23, 38, 0.45), rgba(9, 12, 20, 0.35));
   box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 .glass-panel::before {
@@ -849,11 +864,11 @@
 
 .project-featured {
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  min-height: 720px;
+  height: 750px;
 }
 
 .project-standard {
-  min-height: 420px;
+  height: 650px;
 }
 
 .project-copy,
@@ -934,9 +949,9 @@
 }
 
 .project-visual {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-content: start;
   transform: translateZ(44px);
 }
 
@@ -965,18 +980,21 @@
   gap: 14px;
   grid-template-columns: 3fr 1fr 1fr;
   align-items: stretch;
+  flex: 1;
 }
 
 .project-image-showcase-full {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  grid-template-columns: 1fr;
+  flex: 1;
 }
 
 .project-image-hero-full {
-  /* Keep the original hero frame size */
+  /* Keep the original hero frame size as a minimum or base */
   aspect-ratio: 3 / 2;
   width: 100%;
+  flex: 1;
   position: relative;
   border-radius: 22px;
   overflow: hidden;
@@ -1017,7 +1035,6 @@
   object-position: center center;
 }
 
-/* Make hero images fill the frame */
 .project-image-hero-full img {
   width: 100%;
   height: 100%;
@@ -1025,6 +1042,11 @@
   object-fit: cover;
   object-position: center center;
   padding: 0;
+  transition: transform 500ms cubic-bezier(.2,.9,.2,1);
+}
+
+.project-card:hover .project-image-hero-full img {
+  transform: scale(1.03);
 }
 
 .project-image-arrow {
@@ -1709,6 +1731,7 @@
   .feature-large,
   .feature-phone,
   .feature-side {
+    height: auto;
     min-height: auto;
   }
 
@@ -1830,32 +1853,108 @@
   filter: saturate(1.03) brightness(1.02);
 }
 
-/* Button hover badge showing commits */
+/* Button position context */
 .button {
   position: relative;
 }
-.button-primary::after {
-  content: '';
-  position: absolute;
-  right: -8px;
-  top: -8px;
-  background: linear-gradient(135deg, rgba(124,58,237,0.95), rgba(0,212,255,0.85));
-  color: #051023;
-  font-weight: 800;
-  padding: 6px 8px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  box-shadow: 0 6px 22px rgba(124,58,237,0.16);
-  transform: translateY(-6px) scale(0.92);
-  opacity: 0;
-  transition: transform 320ms cubic-bezier(.2,.9,.28,1), opacity 320ms ease, box-shadow 320ms ease;
-  pointer-events: none;
+
+/* Profile photo in brand */
+.brand-mark-photo {
+  overflow: hidden;
+  padding: 0;
 }
-.button-primary:hover::after {
-  content: '+100';
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  box-shadow: 0 18px 60px rgba(124,58,237,0.22);
+
+.brand-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Code-only project showcase (hackathon) */
+.project-code-showcase {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.code-window {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(17, 22, 35, 0.98), rgba(8, 11, 18, 0.96));
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  min-height: 420px;
+}
+
+.code-window-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.code-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.code-dot.red { background: #ff5f57; }
+.code-dot.yellow { background: #febc2e; }
+.code-dot.green { background: #28c840; }
+
+.code-window-title {
+  margin-left: 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 0.04em;
+}
+
+.code-block {
+  padding: 22px 20px;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+  font-family: 'Space Grotesk', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #c8d6f0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.code-block code {
+  color: inherit;
+  font-family: inherit;
+}
+
+/* Hackathon theme */
+.theme-hackathon .project-backdrop {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(40, 200, 64, 0.16), transparent 24%),
+    radial-gradient(circle at 80% 80%, rgba(254, 188, 46, 0.12), transparent 22%),
+    linear-gradient(180deg, rgba(14, 22, 18, 0.9), rgba(7, 10, 14, 0.98));
+}
+
+/* PDF download button */
+.button-pdf {
+  background: linear-gradient(135deg, rgba(246, 187, 126, 0.14), rgba(246, 187, 126, 0.22));
+  border-color: rgba(246, 187, 126, 0.3);
+}
+
+.button-pdf:hover {
+  background: linear-gradient(135deg, rgba(246, 187, 126, 0.22), rgba(246, 187, 126, 0.32));
+  border-color: rgba(246, 187, 126, 0.6);
 }
 
 /* small animation hint for counters */

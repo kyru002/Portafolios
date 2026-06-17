@@ -4,6 +4,7 @@ import IconSpark from './components/icons/IconSpark.vue'
 import IconGithub from './components/icons/IconGithub.vue'
 import IconLinkedin from './components/icons/IconLinkedin.vue'
 import IconMail from './components/icons/IconMail.vue'
+import IconPhone from './components/icons/IconPhone.vue'
 import AnimatedHeroBackground from './components/AnimatedHeroBackground.vue'
 import StatsSection from './components/StatsSection.vue'
 import SectionDivider from './components/SectionDivider.vue'
@@ -23,6 +24,10 @@ const heroFacts = ['Disponible para oportunidades', 'IA + Full Stack', 'Diseño 
 
 function isFullImageProject(project) {
   return project && ['viejo-roble', 'topcon', 'ticketing-app', 'satoshi-spain', 'coding-404'].includes(project.id)
+}
+
+function isCodeOnlyProject(project) {
+  return project && project.codeOnly === true
 }
 
 const projects = [
@@ -56,11 +61,12 @@ const projects = [
     stack: ['Vue', 'Node.js', 'JavaScript', 'SQL', 'Gamification'],
     ctaLive: 'http://51.195.43.10:5000/',
     ctaCode: 'https://github.com/kyru002/Coding404/tree/main',
+    ctaPdf: '/Memoria Coding404.pdf',
+    ctaPdfLabel: 'Memoria del proyecto',
     previewTone: 'learning',
     previewImage: '/image.png',
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
-    
   },
   {
     id: 'satoshi-spain',
@@ -116,6 +122,21 @@ const projects = [
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
   },
+  {
+    id: 'wildebit',
+    featured: false,
+    category: 'Caso de estudio',
+    title: 'Procesador Automático de Reservas',
+    role: 'Desarrollo Backend e Integración de IA',
+    description:
+      'Automatización e IA. Proyecto desarrollado para automatizar la gestión de reservas de alojamientos. El sistema se conecta a la bandeja de entrada, procesa los correos de agencias de viajes online (OTAs) y extrae la información clave mediante Inteligencia Artificial (LLMs). Posteriormente, estructura todos estos datos en una base de datos SQLite, eliminando la necesidad de entrada manual y optimizando el flujo de trabajo.',
+    stack: ['Python', 'LLMs', 'SQLite', 'Automatización'],
+    ctaLive: '',
+    ctaCode: 'https://github.com/kyru002/wildebit',
+    previewTone: 'hackathon',
+    codeOnly: true,
+    codeSnippet: `// Wildebit — Procesador de Correos e IA\nimport imaplib\nimport sqlite3\nfrom llm_extractor import extract_booking_data\n\ndef process_inbox():\n    mail = connect_to_inbox()\n    emails = fetch_unread(mail)\n    \n    for email in emails:\n        # Extraer info clave usando IA\n        booking_data = extract_booking_data(email.body)\n        \n        if booking_data.is_valid:\n            save_to_sqlite(booking_data)\n            mark_as_processed(email)\n\ndef save_to_sqlite(data):\n    conn = sqlite3.connect('reservas.db')\n    conn.execute("INSERT INTO reservas VALUES (?,?,?)", \n                 (data.guest, data.dates, data.price))\n    conn.commit()`,
+  },
 ]
 
 // Estado del modal para previsualizar imágenes
@@ -149,12 +170,13 @@ const techStack = [
   { label: 'Git', detail: 'Flujo de trabajo colaborativo', value: 92 },
 ]
 
-const contactIcons = [IconGithub, IconLinkedin, IconMail]
+const contactIcons = [IconGithub, IconLinkedin, IconMail, IconPhone]
 
 const contactLinks = [
   { label: 'GitHub', href: 'https://github.com/kyru002' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enrique-abad-romero-098a282bb/' },
   { label: 'Correo', href: `mailto:${CONTACT_EMAIL}` },
+  { label: '619 21 12 41', href: 'tel:+34619211241' },
 ]
 
 const currentProjectIndex = ref(0)
@@ -255,7 +277,9 @@ onBeforeUnmount(() => {
   <div class="page-shell">
     <header class="site-header" data-reveal>
       <a class="brand" href="#inicio">
-        <span class="brand-mark"><IconSpark /></span>
+        <span class="brand-mark brand-mark-photo">
+          <img src="/profile.png" alt="Kike Abad" class="brand-photo" />
+        </span>
         <span class="brand-copy">
           <strong>Kike Abad</strong>
           <small>Full Stack e IA</small>
@@ -272,18 +296,18 @@ onBeforeUnmount(() => {
     <main>
       <section id="inicio" class="hero section">
         <div class="hero-copy">
-          <h1>Desarrollador de Aplicaciones Web</h1>
-          <p class="hero-lead">
+          <h1 class="animate-stagger-1">Desarrollador de Aplicaciones Web</h1>
+          <p class="hero-lead animate-stagger-2">
             Construyo sistemas inteligentes, interfaces centradas en producto y experiencias orientadas a datos
             para startups de IA y equipos tech exigentes.
           </p>
 
-          <div class="hero-actions">
+          <div class="hero-actions animate-stagger-3">
             <a class="button button-primary" href="#projects">Ver proyectos</a>
             <a class="button button-secondary" href="#contact">Contactar</a>
           </div>
 
-          <div class="hero-meta">
+          <div class="hero-meta animate-stagger-4">
             <article v-for="fact in heroFacts" :key="fact" class="hero-chip">{{ fact }}</article>
           </div>
         </div>
@@ -304,8 +328,7 @@ onBeforeUnmount(() => {
           <p class="eyebrow">Proyectos</p>
           <h2>El producto primero. Todo lo demás acompaña al trabajo.</h2>
           <p>
-            Tarjetas grandes, presentación real de producto y mockups basados en imagen para que parezcan páginas de
-            lanzamiento de productos modernos.
+            Aqui os muestro los pequeños proyectos que he echo durante mi tiempo de formación .
           </p>
         </div>
 
@@ -364,6 +387,16 @@ onBeforeUnmount(() => {
                     >
                       Ver código
                     </a>
+                    <a
+                      v-if="activeProject.ctaPdf"
+                      class="button button-secondary button-small button-pdf"
+                      :href="activeProject.ctaPdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      download
+                    >
+                      📄 {{ activeProject.ctaPdfLabel || 'Descargar PDF' }}
+                    </a>
                   </div>
                 </div>
 
@@ -417,6 +450,18 @@ onBeforeUnmount(() => {
                         <span>Microcopy y flujo de motivación</span>
                         <span>Product thinking sobre hábitos</span>
                       </div>
+                    </div>
+                  </div>
+
+                  <div v-else-if="isCodeOnlyProject(activeProject)" class="project-code-showcase">
+                    <div class="code-window">
+                      <div class="code-window-topbar">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-window-title">main.js</span>
+                      </div>
+                      <pre class="code-block"><code>{{ activeProject.codeSnippet }}</code></pre>
                     </div>
                   </div>
 

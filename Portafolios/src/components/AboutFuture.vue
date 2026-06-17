@@ -35,7 +35,7 @@ const qualities = [
       <h2>Construyendo el Futuro</h2>
       <p>
         Recien graduado en <span class="accent-blue">Desarrollo de Aplicaciones Web (DAW)</span>, ahora
-        especializandome en <span class="accent-purple">IA y Analisis de Datos</span>. Combino ingenieria
+        especializandome en <span class="accent-purple">IA y Analisis de Datos</span>. Combino tecnología
         full-stack disciplinada con pasion por crear productos inteligentes enfocados en el usuario que
         resuelven problemas reales.
       </p>

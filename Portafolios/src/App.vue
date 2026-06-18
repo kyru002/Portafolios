@@ -10,8 +10,15 @@ import StatsSection from './components/StatsSection.vue'
 import SectionDivider from './components/SectionDivider.vue'
 import AboutFuture from './components/AboutFuture.vue'
 
+function getAssetUrl(path) {
+  if (!path) return ''
+  const base = import.meta.env.BASE_URL
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return `${base}${cleanPath}`
+}
+
 const CONTACT_EMAIL = 'enriqueabadromero02@gmail.com'
-const DEFAULT_FALLBACK_IMAGE = '/suport-desk-4.png'
+const DEFAULT_FALLBACK_IMAGE = getAssetUrl('/suport-desk-4.png')
 
 const navigation = [
   { label: 'Sobre mí', href: '#about' },
@@ -144,7 +151,7 @@ const modalOpen = ref(false)
 const modalSrc = ref('')
 
 function openPreview(src) {
-  modalSrc.value = src
+  modalSrc.value = getAssetUrl(src)
   modalOpen.value = true
 }
 
@@ -154,7 +161,9 @@ function closePreview() {
 }
 
 function onImgError(event, project) {
-  const fallback = project?.previewImageFallback || DEFAULT_FALLBACK_IMAGE
+  const fallback = project?.previewImageFallback 
+    ? getAssetUrl(project.previewImageFallback) 
+    : DEFAULT_FALLBACK_IMAGE
   if (event?.target) event.target.src = fallback
 }
 
@@ -278,7 +287,7 @@ onBeforeUnmount(() => {
     <header class="site-header" data-reveal>
       <a class="brand" href="#inicio">
         <span class="brand-mark brand-mark-photo">
-          <img src="/profile.png" alt="Kike Abad" class="brand-photo" />
+          <img :src="getAssetUrl('/profile.png')" alt="Kike Abad" class="brand-photo" />
         </span>
         <span class="brand-copy">
           <strong>Kike Abad</strong>
@@ -390,7 +399,7 @@ onBeforeUnmount(() => {
                     <a
                       v-if="activeProject.ctaPdf"
                       class="button button-secondary button-small button-pdf"
-                      :href="activeProject.ctaPdf"
+                      :href="getAssetUrl(activeProject.ctaPdf)"
                       target="_blank"
                       rel="noreferrer"
                       download
@@ -468,7 +477,7 @@ onBeforeUnmount(() => {
                   <div v-else-if="isFullImageProject(activeProject)" class="project-image-showcase-full">
                     <figure class="project-image-hero-full">
                       <img
-                        :src="activeProject.previewImage"
+                        :src="getAssetUrl(activeProject.previewImage)"
                         :alt="`Vista previa de ${activeProject.title}`"
                         loading="lazy"
                         decoding="async"
@@ -489,7 +498,7 @@ onBeforeUnmount(() => {
                     <template v-if="activeProject.previewImage">
                       <figure class="project-image-hero-full">
                         <img
-                          :src="activeProject.previewImage"
+                          :src="getAssetUrl(activeProject.previewImage)"
                           :alt="`Vista previa de ${activeProject.title}`"
                           loading="lazy"
                           decoding="async"

@@ -188,6 +188,7 @@ const contactLinks = [
   { label: '619 21 12 41', href: 'tel:+34619211241' },
 ]
 
+const mobileMenuOpen = ref(false)
 const currentProjectIndex = ref(0)
 const activeProject = computed(() => projects[currentProjectIndex.value])
 const transitionName = ref('carousel-fade')
@@ -285,7 +286,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="page-shell">
     <header class="site-header" data-reveal>
-      <a class="brand" href="#inicio">
+      <a class="brand" href="#inicio" @click="mobileMenuOpen = false">
         <span class="brand-mark brand-mark-photo">
           <img :src="getAssetUrl('/profile.png')" alt="Kike Abad" class="brand-photo" />
         </span>
@@ -295,11 +296,24 @@ onBeforeUnmount(() => {
         </span>
       </a>
 
-      <nav class="site-nav" aria-label="Main navigation">
-        <a v-for="item in navigation" :key="item.href" :href="item.href">{{ item.label }}</a>
-      </nav>
+      <button 
+        class="menu-toggle" 
+        @click="mobileMenuOpen = !mobileMenuOpen" 
+        :aria-expanded="mobileMenuOpen" 
+        aria-label="Abrir menú de navegación"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
 
-      <a class="header-cta button button-primary" href="#contact">Hablemos</a>
+      <div class="site-header-menu" :class="{ 'is-open': mobileMenuOpen }">
+        <nav class="site-nav" aria-label="Main navigation">
+          <a v-for="item in navigation" :key="item.href" :href="item.href" @click="mobileMenuOpen = false">{{ item.label }}</a>
+        </nav>
+
+        <a class="header-cta button button-primary" href="#contact" @click="mobileMenuOpen = false">Hablemos</a>
+      </div>
     </header>
 
     <main>

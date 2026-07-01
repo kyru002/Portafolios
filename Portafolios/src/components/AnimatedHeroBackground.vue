@@ -44,16 +44,21 @@ function animate() {
       const heroEl = container && container.closest('.hero')
       const heroCopy = heroEl && heroEl.querySelector('.hero-copy')
       if (heroCopy) {
-        const rotX = curX.value.toFixed(3)
-        const rotY = curY.value.toFixed(3)
-        const threshold = 0.05
-        const stillRotating = Math.abs(curX.value) > threshold || Math.abs(curY.value) > threshold
-        if (isPointerInside.value || stillRotating) {
-          heroCopy.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`
+        if (window.innerWidth > 720) {
+          const rotX = curX.value.toFixed(3)
+          const rotY = curY.value.toFixed(3)
+          const threshold = 0.05
+          const stillRotating = Math.abs(curX.value) > threshold || Math.abs(curY.value) > threshold
+          if (isPointerInside.value || stillRotating) {
+            heroCopy.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`
+          } else {
+            heroCopy.style.transform = 'translate(-50%, -50%)'
+          }
+          heroCopy.style.transformOrigin = '50% 50%'
         } else {
-          heroCopy.style.transform = 'translate(-50%, -50%)'
+          heroCopy.style.transform = ''
+          heroCopy.style.transformOrigin = ''
         }
-        heroCopy.style.transformOrigin = '50% 50%'
       }
     } catch (err) {
       // ignore

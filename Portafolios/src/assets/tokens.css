@@ -1,0 +1,18 @@
+:root {
+  color-scheme: dark;
+  --bg: #060913;
+  --bg-soft: rgba(16, 21, 38, 0.72);
+  --panel: rgba(18, 24, 42, 0.74);
+  --panel-strong: rgba(22, 29, 48, 0.92);
+  --border: rgba(173, 183, 214, 0.18);
+  --border-strong: rgba(173, 183, 214, 0.32);
+  --text: #edf2fb;
+  --muted: #c2ccde;
+  --muted-strong: #d8e1f1;
+  --accent: #86b7ff;
+  --accent-strong: #8b5cf6;
+  --accent-cyan: #06b6d4;
+  --accent-warm: #f6bb7e;
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  --section-offset: 88px;
+}

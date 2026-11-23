@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { usePrefersReducedMotion } from '../composables/usePrefersReducedMotion'
 import ParticleField from './ParticleField.vue'
 import FloatingFragment from './FloatingFragment.vue'
 
@@ -9,10 +10,12 @@ const curY = ref(0)
 const targetX = ref(0)
 const targetY = ref(0)
 const isPointerInside = ref(false)
+const { prefersReducedMotion } = usePrefersReducedMotion()
 
 let rafId = null
 
 function handleMouseMove(e) {
+  if (prefersReducedMotion.value) return
   const el = containerRef.value
   if (!el) return
   const rect = el.getBoundingClientRect()
@@ -36,6 +39,11 @@ function handleMouseEnter() {
 }
 
 function animate() {
+  if (prefersReducedMotion.value) {
+    rafId = requestAnimationFrame(animate)
+    return
+  }
+
   curX.value += (targetX.value - curX.value) * 0.12
   curY.value += (targetY.value - curY.value) * 0.12
   // apply current tilt to the hero copy element (sibling in the .hero section)
@@ -60,7 +68,7 @@ function animate() {
           heroCopy.style.transformOrigin = ''
         }
       }
-    } catch (err) {
+    } catch {
       // ignore
     }
 
@@ -116,9 +124,6 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-.style-scope-ignore {
-/* helper to avoid accidental relative positioning from scoped rules */
-}
 <style scoped>
 .animated-hero { position: absolute; inset: 0 }
 .animated-hero .grad { position: absolute; border-radius: 50%; filter: blur(80px); }

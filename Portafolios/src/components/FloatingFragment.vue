@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from 'vue'
 defineProps({
   delay: { type: Number, default: 0 },
   duration: { type: Number, default: 20 },

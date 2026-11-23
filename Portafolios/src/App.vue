@@ -621,7 +621,7 @@ onBeforeUnmount(() => {
           <article v-for="skill in techStack" :key="skill.label" class="tech-card glass-panel" data-reveal>
             <div class="tech-card-top">
               <strong>{{ skill.label }}</strong>
-              <span>{{ skill.value }}%</span>
+              <span>{{ skill.value }}</span>
             </div>
             <p>{{ skill.detail }}</p>
             <div class="tech-meter">
@@ -656,7 +656,7 @@ onBeforeUnmount(() => {
     </main>
 
     <footer class="site-footer" data-reveal>
-      <p>Portfolio de IA</p>
+      
       <div class="footer-motion">
         <span></span>
         <span></span>

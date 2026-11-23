@@ -42,7 +42,7 @@ function createStats() {
   },
   {
     key: 'commits',
-    value: 0,
+    value: 180,
     suffix: '+',
     label: 'Commits en GitHub [COMPLETAR: confirmar cifra real]',
     gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)',

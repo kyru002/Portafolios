@@ -42,7 +42,8 @@ onBeforeUnmount(() => {
     <a class="brand" href="#inicio" @click="closeMenu">
       <span class="brand-mark brand-mark-photo">
         <img
-          src="/profile.png"
+          src="/profile-96.webp"
+          srcset="/profile-96.webp 1x, /profile-192.webp 2x"
           width="56"
           height="56"
           alt="Avatar de Enrique Abad"

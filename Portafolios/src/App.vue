@@ -1,6 +1,5 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
-import IconSpark from './components/icons/IconSpark.vue'
 import IconGithub from './components/icons/IconGithub.vue'
 import IconLinkedin from './components/icons/IconLinkedin.vue'
 import IconMail from './components/icons/IconMail.vue'
@@ -29,9 +28,6 @@ const navigation = [
 
 const heroFacts = ['Disponible para oportunidades', 'IA + Full Stack', 'Diseño centrado en producto']
 
-function isFullImageProject(project) {
-  return project && ['viejo-roble', 'topcon', 'ticketing-app', 'satoshi-spain', 'coding-404'].includes(project.id)
-}
 
 function isCodeOnlyProject(project) {
   return project && project.codeOnly === true
@@ -40,7 +36,6 @@ function isCodeOnlyProject(project) {
 const projects = [
   {
     id: 'viejo-roble',
-    featured: false,
     category: 'Freelance',
     title: 'El Viejo Roble',
     role: 'Desarrollo full stack y UX responsive',
@@ -51,15 +46,9 @@ const projects = [
     ctaCode: 'https://github.com/kyru002/WebElViejoRoble-Portafolios',
     previewTone: 'restaurant',
     previewImage: '/el-viejo-roble-1.png',
-    panels: [
-      { title: 'Página principal', type: 'homepage' },
-      { title: 'Página de carta', type: 'menu' },
-      { title: 'UI de reservas', type: 'reservation' },
-    ],
   },
   {
     id: 'coding-404',
-    featured: false,
     category: 'Proyecto final',
     title: 'CODING 404',
     role: 'Trabajo final de grado y dirección de producto',
@@ -77,7 +66,6 @@ const projects = [
   },
   {
     id: 'satoshi-spain',
-    featured: false,
     category: 'Colaboración',
     title: 'Web Satoshi Spain',
     role: 'Primer proyecto profesional en equipo',
@@ -93,7 +81,6 @@ const projects = [
   },
   {
     id: 'ticketing-app',
-    featured: false,
     category: 'Proyecto de clase',
     title: 'App de Ticketing',
     role: 'Frontend + Backend (proyecto de clase)',
@@ -106,15 +93,9 @@ const projects = [
     previewImage: '/suport-desk-1.png',
     previewImageFit: 'cover',
     previewImagePosition: '50% 50%',
-    panels: [
-      { title: 'Lista de incidencias', type: 'inbox' },
-      { title: 'Detalle del ticket', type: 'workspace' },
-      { title: 'Asignación y estado', type: 'reports' },
-    ],
   },
   {
     id: 'topcon',
-    featured: false,
     category: 'Aplicación empresarial',
     title: 'TopCon Reporting',
     role: 'Sistema interno de informes y colaboración',
@@ -131,7 +112,6 @@ const projects = [
   },
   {
     id: 'wildebit',
-    featured: false,
     category: 'Caso de estudio',
     title: 'Procesador Automático de Reservas',
     role: 'Desarrollo Backend e Integración de IA',
@@ -213,17 +193,6 @@ function goToSlide(index) {
   currentProjectIndex.value = index
 }
 
-function handlePrev() {
-  prevSlide()
-}
-
-function handleNext() {
-  nextSlide()
-}
-
-function handleGoTo(index) {
-  goToSlide(index)
-}
 
 function handlePointerMove(event) {
   updateTilt(event.currentTarget, event)
@@ -356,7 +325,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="projects-carousel-container">
-          <button class="carousel-arrow prev-arrow" @click="handlePrev" aria-label="Proyecto anterior">
+          <button class="carousel-arrow prev-arrow" @click="prevSlide" aria-label="Proyecto anterior">
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
             </svg>
@@ -367,7 +336,7 @@ onBeforeUnmount(() => {
               <article
                 :key="activeProject.id"
                 class="project-card glass-panel"
-                :class="[activeProject.featured ? 'project-featured' : 'project-standard', `theme-${activeProject.previewTone}`]"
+                :class="['project-standard', `theme-${activeProject.previewTone}`]"
                 @pointermove="handlePointerMove"
                 @pointerenter="handlePointerEnter"
                 @pointerleave="handlePointerLeave"
@@ -377,7 +346,7 @@ onBeforeUnmount(() => {
                 <div class="project-copy">
                   <div class="project-kicker">
                     <span>{{ activeProject.category }}</span>
-                    <span class="project-badge">{{ activeProject.featured ? 'Destacado' : 'Caso de estudio' }}</span>
+                    <span class="project-badge">Caso de estudio</span>
                   </div>
                   <h3>{{ activeProject.title }}</h3>
                   <p>{{ activeProject.description }}</p>
@@ -385,10 +354,6 @@ onBeforeUnmount(() => {
 
                   <div class="project-tags">
                     <span v-for="tag in activeProject.stack" :key="tag">{{ tag }}</span>
-                  </div>
-
-                  <div v-if="activeProject.featured" class="project-bullets">
-                    <span v-for="bullet in activeProject.bullets" :key="bullet">{{ bullet }}</span>
                   </div>
 
                   <div class="project-actions">
@@ -423,60 +388,13 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
 
-                <div class="project-visual" :class="activeProject.featured ? 'project-visual-featured' : ''">
+                <div class="project-visual">
                   <div class="visual-caption">
                     <span>Vista previa</span>
                     <strong>{{ activeProject.title }}</strong>
                   </div>
 
-                  <div v-if="activeProject.featured" class="feature-showcase">
-                    <div class="feature-large mock-screen">
-                      <div class="mock-topbar">
-                        <span></span><span></span><span></span>
-                      </div>
-                      <div class="mock-dashboard">
-                        <div class="mock-sidebar">
-                          <span class="mock-pill active">Panel</span>
-                          <span class="mock-pill">Rutas</span>
-                          <span class="mock-pill">Progreso</span>
-                          <span class="mock-pill">Retos</span>
-                        </div>
-                        <div class="mock-main">
-                          <div class="mock-hero-panel">
-                            <strong>Programación que engancha</strong>
-                            <p>Aprende haciendo, sube de nivel rápido y gana inercia con cada lección.</p>
-                          </div>
-                          <div class="mock-card-row">
-                            <span class="mock-mini-card">Racha</span>
-                            <span class="mock-mini-card">Objetivo</span>
-                            <span class="mock-mini-card">Logros</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="feature-phone mock-phone">
-                      <div class="phone-notch"></div>
-                      <div class="phone-stack">
-                        <span class="phone-card">Ruta 04</span>
-                        <span class="phone-card highlight">+120 XP</span>
-                        <span class="phone-card">Feedback instantáneo</span>
-                      </div>
-                    </div>
-                    <div class="feature-side">
-                      <div class="feature-figure">
-                        <span class="feature-ring"></span>
-                        <strong>Sistema de progreso</strong>
-                        <small>Bucles de gamificación</small>
-                      </div>
-                      <div class="feature-list">
-                        <span>Onboarding y diseño de retención</span>
-                        <span>Microcopy y flujo de motivación</span>
-                        <span>Product thinking sobre hábitos</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div v-else-if="isCodeOnlyProject(activeProject)" class="project-code-showcase">
+                  <div v-if="isCodeOnlyProject(activeProject)" class="project-code-showcase">
                     <div class="code-window">
                       <div class="code-window-topbar">
                         <span class="code-dot red"></span>
@@ -488,7 +406,7 @@ onBeforeUnmount(() => {
                     </div>
                   </div>
 
-                  <div v-else-if="isFullImageProject(activeProject)" class="project-image-showcase-full">
+                  <div v-else class="project-image-showcase-full">
                     <figure class="project-image-hero-full">
                       <img
                         :src="getAssetUrl(activeProject.previewImage)"
@@ -507,87 +425,12 @@ onBeforeUnmount(() => {
                       />
                     </figure>
                   </div>
-
-                  <div v-else class="project-preview-grid">
-                    <template v-if="activeProject.previewImage">
-                      <figure class="project-image-hero-full">
-                        <img
-                          :src="getAssetUrl(activeProject.previewImage)"
-                          :alt="`Vista previa de ${activeProject.title}`"
-                          loading="lazy"
-                          decoding="async"
-                          :style="{ width: '100%', height: '100%', objectFit: activeProject.previewImageFit || 'cover', objectPosition: activeProject.previewImagePosition || 'center center', display: 'block' }"
-                          @error="onImgError($event, activeProject)"
-                          @click="openPreview(activeProject.previewImage)"
-                        />
-                      </figure>
-                    </template>
-                    <template v-else>
-                      <div v-for="panel in activeProject.panels" :key="panel.title" class="mock-card" :class="`mock-${panel.type}`">
-                        <div class="mock-label">{{ panel.title }}</div>
-                        <div class="mock-frame">
-                          <template v-if="panel.type === 'homepage'">
-                            <div class="mock-hero-strip"></div>
-                            <div class="mock-content-grid">
-                              <span></span><span></span><span></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'menu'">
-                            <div class="mock-menu-line wide"></div>
-                            <div class="mock-menu-line"></div>
-                            <div class="mock-menu-line"></div>
-                            <div class="mock-menu-line short"></div>
-                          </template>
-                          <template v-else-if="panel.type === 'reservation'">
-                            <div class="mock-reserve-calendar"></div>
-                            <div class="mock-button-row">
-                              <span></span><span></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'inbox'">
-                            <div class="mock-mail-header"></div>
-                            <div class="mock-mail-list">
-                              <span v-for="index in 3" :key="index"></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'filters'">
-                            <div class="mock-filter-chip-row">
-                              <span></span><span></span><span></span>
-                            </div>
-                            <div class="mock-automation-graph"></div>
-                          </template>
-                          <template v-else-if="panel.type === 'categories'">
-                            <div class="mock-category-list">
-                              <span></span><span></span><span></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'workspace'">
-                            <div class="mock-workspace-header"></div>
-                            <div class="mock-workspace-grid">
-                              <span></span><span></span><span></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'notes'">
-                            <div class="mock-note-lines">
-                              <span></span><span></span><span></span><span></span>
-                            </div>
-                          </template>
-                          <template v-else-if="panel.type === 'reports'">
-                            <div class="mock-report-card"></div>
-                            <div class="mock-report-bars">
-                              <span></span><span></span><span></span>
-                            </div>
-                          </template>
-                        </div>
-                      </div>
-                    </template>
-                  </div>
                 </div>
               </article>
             </transition>
           </div>
 
-          <button class="carousel-arrow next-arrow" @click="handleNext" aria-label="Siguiente proyecto">
+          <button class="carousel-arrow next-arrow" @click="nextSlide" aria-label="Siguiente proyecto">
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" fill="currentColor"/>
             </svg>
@@ -600,7 +443,7 @@ onBeforeUnmount(() => {
             :key="proj.id"
             class="indicator-dot"
             :class="{ active: idx === currentProjectIndex }"
-            @click="handleGoTo(idx)"
+            @click="goToSlide(idx)"
             :aria-label="'Ver proyecto ' + proj.title"
           ></button>
         </div>

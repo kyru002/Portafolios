@@ -909,11 +909,6 @@
   box-shadow: 0 34px 100px rgba(0, 0, 0, 0.48);
 }
 
-.project-featured {
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  height: 750px;
-}
-
 .project-standard {
   height: 650px;
 }
@@ -1249,380 +1244,6 @@
 /* Ensure good focal points for portrait images */
 .project-image-card img { object-position: center top; }
 
-.mock-card,
-.feature-large,
-.feature-phone,
-.feature-side {
-  border-radius: 26px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(17, 22, 35, 0.98), rgba(8, 11, 18, 0.92));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.mock-card {
-  min-height: 260px;
-  padding: 16px;
-  display: grid;
-  gap: 12px;
-}
-
-.mock-label {
-  color: #dbe7f8;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.mock-frame,
-.mock-screen,
-.mock-phone {
-  position: relative;
-  overflow: hidden;
-}
-
-.mock-frame {
-  flex: 1;
-  border-radius: 20px;
-  border: 1px solid rgba(134, 183, 255, 0.12);
-  background: linear-gradient(180deg, rgba(30, 39, 58, 0.9), rgba(12, 15, 23, 0.96));
-}
-
-.mock-hero-strip {
-  height: 92px;
-  margin: 12px;
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(134, 183, 255, 0.22), rgba(109, 94, 252, 0.18)),
-    radial-gradient(circle at right top, rgba(255, 255, 255, 0.14), transparent 52%);
-}
-
-.mock-content-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding: 0 12px 12px;
-}
-
-.mock-content-grid span,
-.mock-menu-line,
-.mock-mail-list span,
-.mock-filter-chip-row span,
-.mock-category-list span,
-.mock-workspace-grid span,
-.mock-note-lines span,
-.mock-report-bars span,
-.phone-card,
-.mock-mini-card {
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.mock-content-grid span {
-  height: 110px;
-}
-
-.mock-menu-line {
-  height: 16px;
-  margin: 12px 12px 0;
-}
-
-.mock-menu-line.wide { width: 76%; }
-.mock-menu-line.short { width: 54%; }
-
-.mock-reserve-calendar {
-  height: 160px;
-  margin: 12px;
-  border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(134, 183, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 22px);
-}
-
-.mock-button-row {
-  display: flex;
-  gap: 10px;
-  padding: 0 12px 12px;
-}
-
-.mock-button-row span {
-  height: 36px;
-  flex: 1;
-  border-radius: 999px;
-  background: rgba(134, 183, 255, 0.18);
-}
-
-.mock-mail-header {
-  height: 54px;
-  margin: 12px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(134, 183, 255, 0.18), rgba(109, 94, 252, 0.16));
-}
-
-.mock-mail-list {
-  display: grid;
-  gap: 10px;
-  padding: 0 12px 12px;
-}
-
-.mock-mail-list span {
-  height: 52px;
-}
-
-.mock-filter-chip-row {
-  display: flex;
-  gap: 10px;
-  padding: 12px 12px 0;
-}
-
-.mock-filter-chip-row span {
-  height: 28px;
-  flex: 1;
-}
-
-.mock-automation-graph {
-  height: 150px;
-  margin: 12px;
-  border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(119, 212, 255, 0.14), rgba(255, 255, 255, 0.04)),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px 20px),
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px 20px);
-  background-size: auto, 20px 20px, 20px 20px;
-}
-
-.mock-category-list {
-  display: grid;
-  gap: 10px;
-  padding: 12px;
-}
-
-.mock-category-list span {
-  height: 38px;
-}
-
-.mock-workspace-header {
-  height: 46px;
-  margin: 12px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(109, 94, 252, 0.18), rgba(134, 183, 255, 0.14));
-}
-
-.mock-workspace-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding: 0 12px 12px;
-}
-
-.mock-workspace-grid span {
-  height: 108px;
-}
-
-.mock-note-lines {
-  display: grid;
-  gap: 10px;
-  padding: 12px;
-}
-
-.mock-note-lines span {
-  height: 16px;
-}
-
-.mock-report-card {
-  height: 120px;
-  margin: 12px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(134, 183, 255, 0.12), rgba(109, 94, 252, 0.08));
-}
-
-.mock-report-bars {
-  display: flex;
-  gap: 10px;
-  padding: 0 12px 12px;
-  align-items: end;
-}
-
-.mock-report-bars span {
-  flex: 1;
-  height: 64px;
-}
-
-.feature-showcase {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) 220px minmax(0, 0.7fr);
-  gap: 16px;
-  align-items: stretch;
-}
-
-.feature-large {
-  padding: 16px;
-  min-height: 520px;
-  display: grid;
-  gap: 12px;
-}
-
-.mock-screen {
-  height: 100%;
-}
-
-.mock-topbar {
-  display: flex;
-  gap: 8px;
-}
-
-.mock-topbar span {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.24);
-}
-
-.mock-dashboard {
-  display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 12px;
-  min-height: 0;
-  flex: 1;
-}
-
-.mock-sidebar {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-}
-
-.mock-pill {
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.mock-pill.active {
-  color: #eff4ff;
-  background: rgba(134, 183, 255, 0.16);
-}
-
-.mock-main {
-  display: grid;
-  gap: 14px;
-}
-
-.mock-hero-panel {
-  min-height: 170px;
-  border-radius: 22px;
-  padding: 20px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(134, 183, 255, 0.16), transparent 30%),
-    linear-gradient(135deg, rgba(17, 23, 38, 0.96), rgba(9, 12, 18, 0.94));
-}
-
-.mock-hero-panel strong {
-  display: block;
-  max-width: 10ch;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.55rem;
-  line-height: 0.96;
-  color: #f7faff;
-}
-
-.mock-hero-panel p {
-  margin-top: 12px;
-  color: var(--muted);
-}
-
-.mock-card-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.mock-mini-card {
-  min-height: 88px;
-  padding: 14px;
-  display: grid;
-  align-content: end;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.feature-phone {
-  min-height: 520px;
-  padding: 16px 12px;
-  display: grid;
-  gap: 14px;
-}
-
-.phone-notch {
-  width: 42%;
-  height: 16px;
-  margin: 0 auto;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.phone-stack {
-  display: grid;
-  gap: 12px;
-}
-
-.phone-card {
-  height: 104px;
-  padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.phone-card.highlight {
-  background: linear-gradient(135deg, rgba(109, 94, 252, 0.32), rgba(134, 183, 255, 0.14));
-}
-
-.feature-side {
-  min-height: 520px;
-  padding: 20px;
-  display: grid;
-  gap: 18px;
-  align-content: space-between;
-}
-
-.feature-figure {
-  display: grid;
-  gap: 8px;
-  justify-items: start;
-}
-
-.feature-ring {
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  border: 1px solid rgba(134, 183, 255, 0.22);
-  background: radial-gradient(circle, rgba(134, 183, 255, 0.22), transparent 66%);
-  box-shadow: 0 0 40px rgba(134, 183, 255, 0.2);
-}
-
-.feature-figure strong {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.2rem;
-  color: #f7fbff;
-}
-
-.feature-figure small,
-.feature-list span {
-  color: var(--muted);
-}
-
-.feature-list {
-  display: grid;
-  gap: 10px;
-}
-
-.feature-list span {
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
-}
-
 .theme-learning .project-backdrop {
   background:
     radial-gradient(circle at 16% 18%, rgba(134, 183, 255, 0.18), transparent 24%),
@@ -1652,10 +1273,6 @@
   position: absolute;
   inset: 0;
   opacity: 0.66;
-}
-
-.project-featured .project-copy {
-  padding-right: 6px;
 }
 
 .tech-section {
@@ -1763,7 +1380,6 @@
   .hero,
   .about-grid,
   .project-card,
-  .feature-showcase,
   .tech-grid {
     grid-template-columns: 1fr;
   }
@@ -1773,25 +1389,9 @@
   }
 
   .hero-visual,
-  .project-standard,
-  .project-featured,
-  .feature-large,
-  .feature-phone,
-  .feature-side {
+  .project-standard {
     height: auto;
     min-height: auto;
-  }
-
-  .feature-showcase {
-    gap: 14px;
-  }
-
-  .mock-dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .mock-sidebar {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .project-preview-grid {
@@ -1892,22 +1492,8 @@
 
   .tech-grid,
   .stats-grid,
-  .focus-grid,
-  .mock-content-grid,
-  .mock-card-row,
-  .mock-sidebar {
+  .focus-grid {
     grid-template-columns: 1fr;
-  }
-
-  .mock-card,
-  .feature-large,
-  .feature-phone,
-  .feature-side {
-    border-radius: 20px;
-  }
-
-  .feature-side {
-    min-height: auto;
   }
 }
 

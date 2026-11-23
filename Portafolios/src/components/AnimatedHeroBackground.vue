@@ -60,7 +60,7 @@ function animate() {
           heroCopy.style.transformOrigin = ''
         }
       }
-    } catch (err) {
+    } catch {
       // ignore
     }
 

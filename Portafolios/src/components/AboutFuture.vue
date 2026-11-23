@@ -1,29 +1,25 @@
 <script setup>
-import IconSpark from './icons/IconSpark.vue'
-import IconRocket from './icons/IconRocket.vue'
-import IconPeople from './icons/IconPeople.vue'
-import IconBulb from './icons/IconBulb.vue'
-
 const qualities = [
   {
-    icon: IconSpark,
-    title: 'Solucion creativa de problemas',
-    description: 'Transformando desafios complejos en soluciones elegantes e inteligentes.',
+    key: 'problemas',
+    title: 'Resolución de problemas',
+    description: 'Divido los problemas en partes pequeñas y construyo soluciones simples y mantenibles.',
   },
   {
-    icon: IconRocket,
-    title: 'Mentalidad startup',
-    description: 'Ejecucion rapida, aprendizaje continuo y desarrollo enfocado en producto.',
+    key: 'aprendizaje',
+    title: 'Aprendizaje continuo',
+    description: 'Aprendo rápido y lo practico en proyectos reales: web, bases de datos y automatización.',
   },
   {
-    icon: IconPeople,
-    title: 'Colaboracion en equipo',
-    description: 'Experiencia en flujos de trabajo agiles y desarrollo colaborativo.',
+    key: 'equipo',
+    title: 'Trabajo en equipo',
+    description: 'Experiencia en desarrollo colaborativo con Git, en proyectos de empresa y de clase.',
   },
   {
-    icon: IconBulb,
-    title: 'Impulsado por la innovacion',
-    description: 'Apasionado por tecnologias emergentes y construir productos con impacto.',
+    key: 'ia',
+    title: 'Interés por la IA',
+    description:
+      'Estoy aprendiendo IA y análisis de datos y los aplico en pequeños proyectos, como la automatización de reservas con LLMs.',
   },
 ]
 </script>
@@ -31,13 +27,12 @@ const qualities = [
 <template>
   <section class="about-future section">
     <div class="section-heading centered" data-reveal>
-      <p class="eyebrow">Sobre Mi</p>
-      <h2>Construyendo el Futuro</h2>
+      <p class="eyebrow">Sobre mí</p>
+      <h2>Quién soy</h2>
       <p>
-        Recien graduado en <span class="accent-blue">Desarrollo de Aplicaciones Web (DAW)</span>, ahora
-        especializandome en <span class="accent-purple">IA y Analisis de Datos</span>. Combino tecnología
-        full-stack disciplinada con pasion por crear productos inteligentes enfocados en el usuario que
-        resuelven problemas reales.
+        Recién graduado en <span class="accent-blue">Desarrollo de Aplicaciones Web (DAW)</span>, con interés en
+        <span class="accent-purple">IA y análisis de datos</span>, que sigo aprendiendo. Combino tecnología
+        full stack con foco en crear productos útiles para problemas reales.
       </p>
     </div>
 
@@ -52,15 +47,78 @@ const qualities = [
         <div class="quality-hover" />
 
         <div class="quality-icon-wrap">
-          <component :is="quality.icon" class="quality-icon" />
+          <svg
+            v-if="quality.key === 'problemas'"
+            class="quality-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M15.39 10.39a2.4 2.4 0 0 0 0 3.22l.38.38a2.4 2.4 0 0 1 0 3.4l-.38.38a2.4 2.4 0 0 0 0 3.22" />
+            <path d="M8.61 10.39a2.4 2.4 0 0 1 0 3.22l-.38.38a2.4 2.4 0 0 0 0 3.4l.38.38a2.4 2.4 0 0 1 0 3.22" />
+            <path d="M12 2v3" />
+            <path d="M5 5l2.1 2.1" />
+            <path d="M19 5l-2.1 2.1" />
+            <path d="M7.5 8.5h9" />
+            <path d="M10 14h4" />
+          </svg>
+          <svg
+            v-else-if="quality.key === 'aprendizaje'"
+            class="quality-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M22 10v6" />
+            <path d="M2 10v6" />
+            <path d="m12 3 10 5-10 5L2 8l10-5Z" />
+            <path d="M6 12v5c0 1.2 2.7 2.3 6 2.3s6-1.1 6-2.3v-5" />
+          </svg>
+          <svg
+            v-else-if="quality.key === 'equipo'"
+            class="quality-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <path d="M20 8v6" />
+            <path d="M23 11h-6" />
+          </svg>
+          <svg
+            v-else
+            class="quality-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9.5 9a2.5 2.5 0 1 1 5 0c0 1.2-.64 1.9-1.36 2.48-.62.5-1.14.95-1.14 1.52" />
+            <path d="M12 17h.01" />
+            <path d="M7 3h10l4 7-4 7H7l-4-7 4-7Z" />
+          </svg>
         </div>
 
         <h3>{{ quality.title }}</h3>
         <p>{{ quality.description }}</p>
       </article>
     </div>
-
-   
   </section>
 </template>
 

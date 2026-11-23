@@ -1,0 +1,141 @@
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-stagger-1 {
+  animation: fadeUp 800ms cubic-bezier(.2, .9, .2, 1) both;
+  animation-delay: 100ms;
+}
+
+.animate-stagger-2 {
+  animation: fadeUp 800ms cubic-bezier(.2, .9, .2, 1) both;
+  animation-delay: 250ms;
+}
+
+.animate-stagger-3 {
+  animation: fadeUp 800ms cubic-bezier(.2, .9, .2, 1) both;
+  animation-delay: 400ms;
+}
+
+.animate-stagger-4 {
+  animation: fadeUp 800ms cubic-bezier(.2, .9, .2, 1) both;
+  animation-delay: 550ms;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+  gap: 36px;
+  min-height: calc(100vh - 140px);
+  padding-top: 96px;
+}
+
+.hero-copy {
+  display: grid;
+  gap: 22px;
+  max-width: 780px;
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.hero > .animated-hero {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-copy h1 {
+  font-family: 'Fraunces', 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1;
+  max-width: 32ch;
+  background: linear-gradient(120deg, #ffffff 8%, #d8e1f6 34%, #bcd3ff 56%, #9fb7ff 82%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 9s linear infinite;
+}
+
+.hero-lead {
+  max-width: 56ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1.03rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.hero-chip {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #d9e3f6;
+}
+
+@media (max-width: 1120px) {
+  .hero {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: 72px 0 48px;
+    min-height: auto;
+  }
+
+  .hero-copy {
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+  }
+
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(2rem, 6.5vw, 3.2rem);
+  }
+}

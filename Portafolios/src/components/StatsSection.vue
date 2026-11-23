@@ -1,48 +1,66 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import IconTooling from './icons/IconTooling.vue'
-import IconRocket from './icons/IconRocket.vue'
-import IconSupport from './icons/IconSupport.vue'
-import IconGithub from './icons/IconGithub.vue'
+import { usePrefersReducedMotion } from '../composables/usePrefersReducedMotion'
+
+const props = defineProps({
+  techCount: {
+    type: Number,
+    required: true,
+  },
+  projectCount: {
+    type: Number,
+    required: true,
+  },
+})
 
 const sectionRef = ref(null)
 const counters = ref([0, 0, 0, 0])
+const { prefersReducedMotion } = usePrefersReducedMotion()
 
-const stats = [
+function createStats() {
+  return [
   {
-    icon: IconTooling,
-    value: 8,
+    key: 'tooling',
+    value: props.techCount,
     suffix: '+',
-    label: 'Tecnologias dominadas',
+    label: 'Tecnologías que uso',
     gradient: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
   },
   {
-    icon: IconRocket,
-    value: 5,
+    key: 'projects',
+    value: props.projectCount,
     suffix: '+',
-    label: 'Proyectos reales',
+    label: 'Proyectos publicados',
     gradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
   },
   {
-    icon: IconSupport,
+    key: 'hackathon',
     value: 1,
     suffix: '',
     label: 'Hackathon',
     gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
   },
   {
-    icon: IconGithub,
-    value: 100,
+    key: 'commits',
+    value: 0,
     suffix: '+',
-    label: 'Commits en Git',
+    label: 'Commits en GitHub [COMPLETAR: confirmar cifra real]',
     gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
   },
 ]
+}
+
+const stats = createStats()
 
 let observer
 let rafId = null
 
 function runCounters() {
+  if (prefersReducedMotion.value) {
+    counters.value = stats.map((s) => s.value)
+    return
+  }
+
   const start = performance.now()
   const duration = 2200
 
@@ -93,7 +111,66 @@ onBeforeUnmount(() => {
 
           <div class="stat-icon-ring" :style="{ background: stat.gradient }">
             <div class="stat-icon-core">
-              <component :is="stat.icon" class="stat-icon" />
+              <svg
+                v-if="stat.key === 'tooling'"
+                class="stat-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4L14 13l-3-3 3.7-3.7Z" />
+              </svg>
+              <svg
+                v-else-if="stat.key === 'projects'"
+                class="stat-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 12h16" />
+                <path d="M12 4v16" />
+                <path d="M4 7h16" />
+                <path d="M4 17h16" />
+              </svg>
+              <svg
+                v-else-if="stat.key === 'hackathon'"
+                class="stat-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M8 21h8" />
+                <path d="M12 17v4" />
+                <path d="M7 4h10v4a5 5 0 0 1-10 0V4Z" />
+                <path d="M17 6h2a2 2 0 0 1 0 4h-2" />
+                <path d="M7 6H5a2 2 0 0 0 0 4h2" />
+              </svg>
+              <svg
+                v-else
+                class="stat-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3" />
+                <path d="M15 22v-3.9a3.4 3.4 0 0 0-.94-2.65c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-6 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.62 6.44 7A3.4 3.4 0 0 0 9 18.1V22" />
+              </svg>
             </div>
           </div>
 

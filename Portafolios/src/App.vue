@@ -168,15 +168,15 @@ function onImgError(event, project) {
 }
 
 const techStack = [
-  { label: 'HTML', detail: 'Estructura semántica y bases escalables', value: 95 },
-  { label: 'CSS', detail: 'Motion, glassmorphism y precisión en layout', value: 95 },
-  { label: 'JavaScript', detail: 'Lógica interactiva y orquestación de UI', value: 90 },
-  { label: 'Vue', detail: 'Arquitectura de componentes para interfaces modernas', value: 88 },
-  { label: 'Node.js', detail: 'Servicios backend e integración de APIs', value: 84 },
-  { label: 'Python', detail: 'Herramientas de IA y flujos orientados a datos', value: 82 },
-  { label: 'Java', detail: 'Fundamentos sólidos de backend', value: 76 },
-  { label: 'SQL', detail: 'Modelado de datos y diseño de persistencia', value: 86 },
-  { label: 'Git', detail: 'Flujo de trabajo colaborativo', value: 92 },
+  { label: 'HTML', detail: 'Estructura semántica y bases escalables'  },
+  { label: 'CSS', detail: 'Motion, glassmorphism y precisión en layout' },
+  { label: 'JavaScript', detail: 'Lógica interactiva y orquestación de UI' },
+  { label: 'Vue', detail: 'Arquitectura de componentes para interfaces modernas' },
+  { label: 'Node.js', detail: 'Servicios backend e integración de APIs'  },
+  { label: 'Python', detail: 'Herramientas de IA y flujos orientados a datos' },
+  { label: 'Java', detail: 'Fundamentos sólidos de backend' },
+  { label: 'SQL', detail: 'Modelado de datos y diseño de persistencia' },
+  { label: 'Git', detail: 'Flujo de trabajo colaborativo' },
 ]
 
 const contactIcons = [IconGithub, IconLinkedin, IconMail, IconPhone]
@@ -185,7 +185,7 @@ const contactLinks = [
   { label: 'GitHub', href: 'https://github.com/kyru002' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enrique-abad-romero-098a282bb/' },
   { label: 'Correo', href: `mailto:${CONTACT_EMAIL}` },
-  { label: '619 21 12 41', href: 'tel:+34619211241' },
+  
 ]
 
 const mobileMenuOpen = ref(false)
@@ -319,10 +319,10 @@ onBeforeUnmount(() => {
     <main>
       <section id="inicio" class="hero section">
         <div class="hero-copy">
-          <h1 class="animate-stagger-1">Desarrollador de Aplicaciones Web</h1>
+          <h1 class="animate-stagger-1">Desarrollador Full Stack Junior</h1>
           <p class="hero-lead animate-stagger-2">
-            Construyo sistemas inteligentes, interfaces centradas en producto y experiencias orientadas a datos
-            para startups de IA y equipos tech exigentes.
+                        Recién graduado en DAW, construyoo aplicaciones web completas con foco en producto.Trabajo desde el frontend hasta la base de datos
+
           </p>
 
           <div class="hero-actions animate-stagger-3">
